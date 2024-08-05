@@ -1,0 +1,11 @@
+.sudoku_grid {
+  display: grid;
+  grid-template-columns: repeat(9, 40px);
+  grid-template-rows: repeat(9, 40px);
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content;
+  margin-top: 50px;
+}
+
+ 

@@ -1,12 +1,16 @@
-import React from 'react';
+// --- IMPORTS --- //
 
+// packages ----------------------------------------------------------------
+import React from "react";
+// components --------------------------------------------------------------
+import SudokuGrid from '../Generic/SudokuGrid';
+
+// --- COMPONENT --- //
 function Page_GridEdit() {
   return (
-    <div >
-      this is the page where you edit grids
-    </div>
+    <SudokuGrid/>
   );
 }
 
-
+// --- EXPORT --- //
 export default Page_GridEdit;
