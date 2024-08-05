@@ -1,9 +1,8 @@
 /* Sets style for sudoku cells */
 .sudoku_cell {
-  width: 44px;
-  height: 44px;
-  display: inline-block;
-  line-height: 44px;
+  width: 45px;
+  height: 45px;
+  line-height: 45px;
   text-align: center;
   border: solid 1px gray;
   padding: 0;

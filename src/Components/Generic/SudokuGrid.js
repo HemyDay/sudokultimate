@@ -19,6 +19,7 @@ function SudokuGrid() {
       ))}
     </div>
   );
+  
 }
 
 // --- EXPORT --- //

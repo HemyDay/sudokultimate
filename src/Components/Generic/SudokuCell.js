@@ -5,7 +5,6 @@ import React from "react";
 // styles ------------------------------------------------------------------
 import './SudokuCell.css';
 
-
 // --- COMPONENT --- //
 function SudokuCell(props) {
   return (
