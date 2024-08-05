@@ -7,6 +7,9 @@ import './SudokuCell.css';
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
+
+  let cell_value= props.value || 0
+
   return (
     <div className="sudoku_cell" 
     id={props.id}
@@ -15,7 +18,7 @@ function SudokuCell(props) {
     cell_square={parseInt(props.id[2])}
     >
       <div className="sudoku_cell_value">
-        {props.id}
+        {cell_value}
       </div>
 
     </div>
