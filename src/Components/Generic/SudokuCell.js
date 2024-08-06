@@ -1,26 +1,31 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React from "react";
+import React, { useState }  from "react";
 // styles ------------------------------------------------------------------
 import './SudokuCell.css';
+// components --------------------------------------------------------------
+import SudokuCellValue from "./SudokuCellValue";
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
-  let cell_value= props.value || 0
+  // --- STATE --- //
 
+  const [cellValue, setCellValue] = useState(props.value || 0);
+  const [isEditable, setIsEditable] = useState(props.isEditable || true)
+  const [isSelected, setIsSelected] = useState(false);
+
+  // --- RETURN --- //
   return (
     <div className="sudoku_cell" 
     id={props.id}
     cell_row={parseInt(props.id[0])}
     cell_col={parseInt(props.id[1])}
     cell_square={parseInt(props.id[2])}
+    cell_isEditable={isEditable.toString()}
     >
-      <div className="sudoku_cell_value">
-        {cell_value}
-      </div>
-
+      <SudokuCellValue cellValue={cellValue}/>
     </div>
   );
 }
