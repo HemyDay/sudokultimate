@@ -7,9 +7,11 @@ import SudokuGrid from '../Generic/SudokuGrid';
 
 // --- COMPONENT --- //
 function Page_GridEdit() {
+
   return (
     <SudokuGrid/>
   );
+  
 }
 
 // --- EXPORT --- //

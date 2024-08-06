@@ -8,8 +8,6 @@ import './SudokuCellValue.css';
 // --- COMPONENT --- //
 function SudokuCellValue(props) {
 
-  console.log(props.cellValue);
-
   switch (true) {
 
     case props.cellValue === 0 : 
