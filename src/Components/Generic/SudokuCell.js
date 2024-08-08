@@ -30,7 +30,7 @@ function SudokuCell(props) {
     }
   }
 
-  // --- STATE --- //
+  // --- STATES --- //
 
   const [cellValue,     setCellValue]     = useState(props.value      || 0);
   const [isEditable,    setIsEditable]    = useState(props.isEditable || true)
