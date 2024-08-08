@@ -26,6 +26,7 @@
   cursor:pointer;
 }
 
+
 .sudoku_cell[cell_is-selected=true]{
   background-color: lightblue;
 }

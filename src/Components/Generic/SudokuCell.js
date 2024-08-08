@@ -13,12 +13,11 @@ function SudokuCell(props) {
   // --- EVENT HANDLERS --- //
   
   function initiateCellSelection() {
+    if (props.isCtrlDown === false) {props.setSelectedCells({})};
     if (!props.isSelected) {
-      props.setSelectedCells({})
       props.handleCellSelection(props.id, true);
       props.setTypeOfSelect(true)
     } else if (props.isSelected) {
-      props.setSelectedCells({})
       props.handleCellSelection(props.id, false);
       props.setTypeOfSelect(false)
     }
@@ -36,7 +35,7 @@ function SudokuCell(props) {
 
   // --- STATES --- //
 
-  const [cellValue, setCellValue] = useState(props.value || 0);
+  const [cellValue, setCellValue] = useState(props.initialValue || 0);
   const [isEditable, setIsEditable] = useState(props.isEditable || true);
 
 
@@ -55,7 +54,7 @@ function SudokuCell(props) {
       onMouseDown={initiateCellSelection}
       onMouseEnter={hoverCellSelection}
     >
-      <SudokuCellValue cellValue={props.value} />
+      <SudokuCellValue cellValue={cellValue} />
     </div>
   );
 }
