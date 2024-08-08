@@ -1,12 +1,11 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React, { useState }  from "react";
+import React, { useState } from "react";
 // styles ------------------------------------------------------------------
 import './SudokuCell.css';
 // components --------------------------------------------------------------
 import SudokuCellValue from "./SudokuCellValue";
-
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
@@ -14,45 +13,49 @@ function SudokuCell(props) {
   // --- EVENT HANDLERS --- //
   
   function initiateCellSelection() {
-    setIsSelected(!isSelected)
-    props.setTypeOfSelect(!isSelected)
-    console.log(!isSelected)
+    if (!props.isSelected) {
+      props.setSelectedCells({})
+      props.handleCellSelection(props.id, true);
+      props.setTypeOfSelect(true)
+    } else if (props.isSelected) {
+      props.setSelectedCells({})
+      props.handleCellSelection(props.id, false);
+      props.setTypeOfSelect(false)
+    }
   } 
   
-  function handleCellSelection() {
-    if (props.isMouseDown === true) {
-      if (props.typeOfSelect === true && isSelected === false) {
-        setIsSelected(true);
-      }
-      else if (props.typeOfSelect === false && isSelected === true) {
-        setIsSelected(false);
+  function hoverCellSelection() {
+    if (props.isMouseDown) {
+      if (props.typeOfSelect && !props.isSelected) {
+        props.handleCellSelection(props.id, true);
+      } else if (!props.typeOfSelect && props.isSelected) {
+        props.handleCellSelection(props.id, false);
       }
     }
   }
 
   // --- STATES --- //
 
-  const [cellValue,     setCellValue]     = useState(props.value      || 0);
-  const [isEditable,    setIsEditable]    = useState(props.isEditable || true)
-  const [isSelected,    setIsSelected]    = useState(false);
-  const [isInNoteMode,  setIsInNoteMode]  = useState(false);
+  const [cellValue, setCellValue] = useState(props.value || 0);
+  const [isEditable, setIsEditable] = useState(props.isEditable || true);
+
 
   // --- RETURN --- //
   return (
-    <div className="sudoku_cell" 
-    id={props.id}
-    // Proprieties for CSS
-    cell_row={parseInt(props.id[0])}
-    cell_col={parseInt(props.id[1])}
-    cell_square={parseInt(props.id[2])}
-    cell_isEditable={isEditable.toString()}
-    cell_isSelected={isSelected.toString()}
+    <div className="sudoku_cell"
+      id={props.id}
+      // Properties for CSS
+      cell_row={parseInt(props.id[0])}
+      cell_col={parseInt(props.id[1])}
+      cell_square={parseInt(props.id[2])}
+      cell_is-editable={isEditable.toString()}
+      cell_is-selected={props.isSelected.toString()}
 
-    // Event handlers
-    onMouseDown={() => initiateCellSelection()}
-    onMouseEnter={() => handleCellSelection()}
+      // Event handlers
+      onMouseDown={initiateCellSelection}
+      onMouseEnter={hoverCellSelection}
     >
-      <SudokuCellValue cellValue={cellValue}/>
+      <SudokuCellValue cellValue={props.value} />
     </div>
   );
 }
