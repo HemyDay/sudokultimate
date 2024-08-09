@@ -6,19 +6,18 @@ import React, { useState } from "react";
 import './SudokuCell.css';
 // components --------------------------------------------------------------
 import SudokuCellValue from "./SudokuCellValue";
+// function ----------------------------------------------------------------
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
-  // --- EVENT HANDLERS --- //
-  
   function initiateCellSelection() {
-    if (props.isCtrlDown === false) {props.setSelectedCells({})};
+    if (props.isCtrlDown === false) {props.unselectAllCells()};
     if (!props.isSelected) {
-      props.handleCellSelection(props.id, true);
+      props.updateGridObject(props.id, 'isSelected', true);
       props.setTypeOfSelect(true)
     } else if (props.isSelected) {
-      props.handleCellSelection(props.id, false);
+      props.updateGridObject(props.id, 'isSelected', false);
       props.setTypeOfSelect(false)
     }
   } 
@@ -26,18 +25,12 @@ function SudokuCell(props) {
   function hoverCellSelection() {
     if (props.isMouseDown) {
       if (props.typeOfSelect && !props.isSelected) {
-        props.handleCellSelection(props.id, true);
+        props.updateGridObject(props.id, 'isSelected', true);
       } else if (!props.typeOfSelect && props.isSelected) {
-        props.handleCellSelection(props.id, false);
+        props.updateGridObject(props.id, 'isSelected', false);
       }
     }
   }
-
-  // --- STATES --- //
-
-  const [cellValue, setCellValue] = useState(props.initialValue || 0);
-  const [isEditable, setIsEditable] = useState(props.isEditable || true);
-
 
   // --- RETURN --- //
   return (
@@ -47,14 +40,13 @@ function SudokuCell(props) {
       cell_row={parseInt(props.id[0])}
       cell_col={parseInt(props.id[1])}
       cell_square={parseInt(props.id[2])}
-      cell_is-editable={isEditable.toString()}
       cell_is-selected={props.isSelected.toString()}
-
+      cell_is-editable={props.isEditable.toString()}
       // Event handlers
       onMouseDown={initiateCellSelection}
       onMouseEnter={hoverCellSelection}
     >
-      <SudokuCellValue cellValue={cellValue} />
+      <SudokuCellValue cellValue={props.value} />
     </div>
   );
 }
