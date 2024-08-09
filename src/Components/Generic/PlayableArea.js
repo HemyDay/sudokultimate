@@ -1,39 +1,25 @@
 // --- IMPORTS --- //
-
 // packages ----------------------------------------------------------------
 import React, {useState} from "react";
 // components --------------------------------------------------------------
 import SudokuGrid from "./SudokuGrid";
+import MiscKeyListener from "../../Functions/MiscKeyListener";
 // styles ------------------------------------------------------------------
 import './PlayableArea.css';
 
 // --- COMPONENT --- //
 function PlayableArea() {
-
-  // Key listeners ----------------------------------------------------------------
-  const [isCtrlDown, setIsCtrlDown] = useState(false);
-  const [isShiftDown, setIsShiftDown] = useState(false);
-
-  document.addEventListener('keydown', (event) => {
-    switch (event.key) {
-      case 'Control' : if (isCtrlDown === false) {setIsCtrlDown(true)}; ; break;
-      case 'Shift' : if (isShiftDown === false) {setIsShiftDown(true)}; ; break;
-    }
-  });
-
-  document.addEventListener('keyup', (event) => {
-    switch (event.key) {
-      case 'Control' : if (isCtrlDown === true) {setIsCtrlDown(false)}; break;
-      case 'Shift' : if (isShiftDown === true) {setIsShiftDown(false)}; break;
-    }
-  });
-
+  
+  const [pressedMiscKey, setPressedMiscKey] = useState(null)
+  let possibleKeys = ["Control", "Enter", "Space"]
+  const onMiscKeyPress = (keyPressed) => {setPressedMiscKey(keyPressed);}; 
+  const onMiscKeyRelease = () => {setPressedMiscKey(null);};
+  
   return (
     <section className="playable_area">
-      <SudokuGrid
-        isCtrlDown={isCtrlDown}
-        isShiftDown={isShiftDown}
-      />
+      <MiscKeyListener onMiscKeyPress={onMiscKeyPress} onMiscKeyRelease={onMiscKeyRelease} possibleKeys={possibleKeys}/>
+      <SudokuGrid/>
+      
     </section>
   );
   
