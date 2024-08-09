@@ -1,18 +1,19 @@
 import React, { useEffect, useRef } from "react";
 
-function NumberKeyListener({ onNumberPress }) {
-  const isNbKeyPressed = useRef(false);
+function MiscKeyListener({ onMiscKeyPress, onMiscKeyRelease, possibleKeys }) {
+  const isMiscKeyPressed = useRef(false);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (!isNbKeyPressed.current && event.key >= "0" && event.key <= "9") {
-        onNumberPress(event.key);
-        isNbKeyPressed.current = true;
+      if (!isMiscKeyPressed.current && possibleKeys.includes(event.key)) {
+        onMiscKeyPress(event.key);
+        isMiscKeyPressed.current = true;
       }
     };
 
     const handleKeyUp = () => {
-      isNbKeyPressed.current = false;
+      isMiscKeyPressed.current = false;
+      onMiscKeyRelease();
     };
 
     window.addEventListener("keydown", handleKeyDown);
@@ -22,9 +23,9 @@ function NumberKeyListener({ onNumberPress }) {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [onNumberPress]);
+  }, [onMiscKeyPress]);
 
   return null; // This component doesn't need to render anything
 }
 
-export default NumberKeyListener;
+export default MiscKeyListener;

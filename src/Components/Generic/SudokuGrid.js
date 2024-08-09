@@ -112,9 +112,9 @@ function SudokuGrid(props) {
     );
   };
 
-  const [isMouseDown,   setIsMouseDown]   = useState(false);                // Variable to keep track of the state of the mouse down event
-  const [noteMode,      setNoteMode]      = useState(false);                // Variable to keep track of the state of the note mode
-  const [typeOfSelect,  setTypeOfSelect] = useState(false);                // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
+  const [isMouseDown,   setIsMouseDown]   = useState(false);              // Variable to keep track of the state of the mouse down event
+  const [noteMode,      setNoteMode]      = useState(false);              // Variable to keep track of the state of the note mode
+  const [typeOfSelect,  setTypeOfSelect] = useState(false);               // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
 
   const handleMouseDown = () => {setIsMouseDown(true);};                  // Event handler for when the mouse button is pressed down
   const handleMouseUp = () => {setIsMouseDown(false);};                   // Event handler for when the mouse button is released
