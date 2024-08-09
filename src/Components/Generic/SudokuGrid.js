@@ -1,64 +1,158 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React, { useState, useRef } from "react";
-import { useClickOutside } from '@shelf/react-outside-click';
+import React, { useState, useRef, useEffect } from "react";
 // components --------------------------------------------------------------
-import SudokuCell from "./SudokuCell";
+import SudokuCell from './SudokuCell';
+import NumberKeyListener from "../../Functions/NumberKeyListener";
 // styles ------------------------------------------------------------------
 import './SudokuGrid.css';
+// functions ---------------------------------------------------------------
+
 
 // --- COMPONENT --- //
 function SudokuGrid(props) {
-  const GRID_GENERATION_IDS = ['111', '121', '131', '142', '152', '162', '173', '183', '193','211', '221', '231', '242', '252', '262', '273', '283', '293','311', '321', '331', '342', '352', '362', '373', '383', '393','414', '424', '434', '445', '455', '465', '476', '486', '496','514', '524', '534', '545', '555', '565', '576', '586', '596','614', '624', '634', '645', '655', '665', '676', '686', '696','717', '727', '737', '748', '758', '768', '779', '789', '799','817', '827', '837', '848', '858', '868', '879', '889', '899','917', '927', '937', '948', '958', '968', '979', '989', '999'];
+  const [gridObject, setGridObject] = useState([
+    {"id": "111" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "121" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "131" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "142" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "152" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "162" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "173" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "183" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "193" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "211" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "221" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "231" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "242" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "252" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "262" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "273" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "283" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "293" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "311" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "321" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "331" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "342" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "352" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "362" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "373" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "383" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "393" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "414" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "424" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "434" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "445" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "455" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "465" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "476" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "486" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "496" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "514" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "524" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "534" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "545" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "555" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "565" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "576" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "586" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "596" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "614" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "624" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "634" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "645" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "655" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "665" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "676" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "686" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "696" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "717" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "727" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "737" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "748" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "758" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "768" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "779" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "789" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "799" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "817" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "827" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "837" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "848" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "858" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "868" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "879" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "889" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "899" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "917" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "927" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "937" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "948" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "958" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "968" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "979" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "989" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+    {"id": "999" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
+  ]);
   
-  const [isMouseDown, setIsMouseDown] = useState(false);              // Variable to keep track of the state of the mouse down event
-  const [typeOfSelect, setTypeOfSelect] = useState(false);            // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
-  const [noteMode, setNoteMode] = useState(false);                    // Variable to keep track of the state of the note mode
-  const [selectedCells, setSelectedCells] = useState({});             // State to keep track of selected cells
+  const updateGridObject = (cellID, change, newValue) => {
+    setGridObject((prevGrid) => prevGrid.map(cell =>
+      cell.id === cellID ? { ...cell, [change]: newValue } : cell
+    ));
+  };
 
-  const ref = useRef(null);                                           // This part I'm not sure how it works, but it's part of the react-outside-click library 
-  
-const handleMouseDown = () => { setIsMouseDown(true); };              // Event handler for when the mouse button is pressed down
-const handleMouseUp = () => { setIsMouseDown(false); };               // Event handler for when the mouse button is released
+  const handleNumberPress = (number) => {
+    setGridObject((prevGrid) =>
+      prevGrid.map((cell) =>
+        cell.isSelected && cell.isEditable
+          ? { ...cell, value: parseInt(number, 10) }
+          : cell
+      )
+    );
+  };
 
-const handleClickOutside = () => {setSelectedCells({});};             // handleClickOutside fires when the user clicks outside of the grid
-useClickOutside(ref, handleClickOutside, { mouseEvent: 'mousedown' });
+  const [isMouseDown,   setIsMouseDown]   = useState(false);                // Variable to keep track of the state of the mouse down event
+  const [noteMode,      setNoteMode]      = useState(false);                // Variable to keep track of the state of the note mode
+  const [typeOfSelect,  setTypeOfSelect] = useState(false);                // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
 
-// Function to handle cell selection
-const handleCellSelection = (id, isSelected) => {
-  setSelectedCells((prev) => ({
-    ...prev,
-    [id]: isSelected,
-  }));
-};
+  const handleMouseDown = () => {setIsMouseDown(true);};                  // Event handler for when the mouse button is pressed down
+  const handleMouseUp = () => {setIsMouseDown(false);};                   // Event handler for when the mouse button is released
 
-// --- RETURN --- //
+  // --- RETURN --- //
   return (
     <div className="sudoku_grid"
-      ref={ref}
+      onContextMenu={(e) => {e.preventDefault();}}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      onContextMenu={(e) => {e.preventDefault();}}
     >
-      {GRID_GENERATION_IDS.map((id) => (
-        <SudokuCell
-          key={id} 
-          id={id}
-          isMouseDown={isMouseDown}
-          isCtrlDown={props.isCtrlDown}
-          isShiftDown={props.isShiftDown}
-          setTypeOfSelect={setTypeOfSelect}
-          typeOfSelect={typeOfSelect}
-          isSelected={selectedCells[id] || false}
-          handleCellSelection={handleCellSelection}
-          setSelectedCells={setSelectedCells}
-          selectedCells={selectedCells}
-          initialValue={0}
-          noteMode={noteMode}
-        />
-      ))}
+      <NumberKeyListener onNumberPress={handleNumberPress} />
+      {gridObject.map((cell) => {
+        return(
+          <SudokuCell
+            //Utils
+            key={cell.id} 
+            id={cell.id}
+            // Keyboard and mouse inputs
+            isMouseDown={isMouseDown}
+            isCtrlDown={props.isCtrlDown}
+            isShiftDown={props.isShiftDown}
+            // Modes
+            noteMode={noteMode}
+            typeOfSelect={typeOfSelect}
+            setTypeOfSelect={setTypeOfSelect}
+            // Values
+            value={cell.value}
+            isSelected={cell.isSelected}
+            isEditable={cell.isEditable}
+            isWarning={cell.isWarning}
+            // Functions
+            updateGridObject={updateGridObject}
+          />
+        )
+      })}
+
     </div>
 
   );
@@ -66,3 +160,5 @@ const handleCellSelection = (id, isSelected) => {
 
 // --- EXPORT --- //
 export default SudokuGrid;
+
+
