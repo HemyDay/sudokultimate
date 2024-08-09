@@ -1,7 +1,7 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 // styles ------------------------------------------------------------------
 import './SudokuCell.css';
 // components --------------------------------------------------------------
@@ -12,7 +12,6 @@ import SudokuCellValue from "./SudokuCellValue";
 function SudokuCell(props) {
 
   function initiateCellSelection() {
-    if (props.isCtrlDown === false) {props.unselectAllCells()};
     if (!props.isSelected) {
       props.updateGridObject(props.id, 'isSelected', true);
       props.setTypeOfSelect(true)
@@ -31,6 +30,7 @@ function SudokuCell(props) {
       }
     }
   }
+
 
   // --- RETURN --- //
   return (

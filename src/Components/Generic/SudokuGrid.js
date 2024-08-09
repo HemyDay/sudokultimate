@@ -1,12 +1,14 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React, { useState, useRef } from "react";
-import { useClickOutside } from '@shelf/react-outside-click';
+import React, { useState, useRef, useEffect } from "react";
 // components --------------------------------------------------------------
 import SudokuCell from './SudokuCell';
+import NumberKeyListener from "../../Functions/NumberKeyListener";
 // styles ------------------------------------------------------------------
 import './SudokuGrid.css';
+// functions ---------------------------------------------------------------
+
 
 // --- COMPONENT --- //
 function SudokuGrid(props) {
@@ -95,35 +97,37 @@ function SudokuGrid(props) {
   ]);
   
   const updateGridObject = (cellID, change, newValue) => {
-    switch (change) {
-      case 'value':     setGridObject(gridObject.map(cell => cell.id === cellID ? { ...cell, 'value'      : newValue } : cell)); break;
-      case 'isSelected':setGridObject(gridObject.map(cell => cell.id === cellID ? { ...cell, 'isSelected' : newValue } : cell)); break;  
-      case 'isWarning': setGridObject(gridObject.map(cell => cell.id === cellID ? { ...cell, 'isWarning'  : newValue } : cell)); break;
-      case 'isEditable':setGridObject(gridObject.map(cell => cell.id === cellID ? { ...cell, 'isEditable' : newValue } : cell)); break;
-    } 
-  }; 
+    setGridObject((prevGrid) => prevGrid.map(cell =>
+      cell.id === cellID ? { ...cell, [change]: newValue } : cell
+    ));
+  };
 
-  const unselectAllCells = () => {setGridObject(gridObject.map(cell => ({...cell, 'isSelected': false })));};
+  const handleNumberPress = (number) => {
+    setGridObject((prevGrid) =>
+      prevGrid.map((cell) =>
+        cell.isSelected && cell.isEditable
+          ? { ...cell, value: parseInt(number, 10) }
+          : cell
+      )
+    );
+  };
 
-  const ref = useRef(null);   
-  useClickOutside(ref, unselectAllCells, { mouseEvent: 'mousedown' });
+  const [isMouseDown,   setIsMouseDown]   = useState(false);                // Variable to keep track of the state of the mouse down event
+  const [noteMode,      setNoteMode]      = useState(false);                // Variable to keep track of the state of the note mode
+  const [typeOfSelect,  setTypeOfSelect] = useState(false);                // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
 
-  const [isMouseDown, setIsMouseDown] = useState(false);                // Variable to keep track of the state of the mouse down event
-  const [noteMode,    setNoteMode]    = useState(false);                // Variable to keep track of the state of the note mode
-  const [typeOfSelect, setTypeOfSelect] = useState(false);              // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
-
-  const handleMouseDown = () => {setIsMouseDown(true);};                // Event handler for when the mouse button is pressed down
-  const handleMouseUp = () => {setIsMouseDown(false);};                 // Event handler for when the mouse button is released
+  const handleMouseDown = () => {setIsMouseDown(true);};                  // Event handler for when the mouse button is pressed down
+  const handleMouseUp = () => {setIsMouseDown(false);};                   // Event handler for when the mouse button is released
 
   // --- RETURN --- //
   return (
     <div className="sudoku_grid"
-      ref={ref}
+      onContextMenu={(e) => {e.preventDefault();}}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
-      onContextMenu={(e) => {e.preventDefault();}}
     >
+      <NumberKeyListener onNumberPress={handleNumberPress} />
       {gridObject.map((cell) => {
         return(
           <SudokuCell
@@ -145,7 +149,6 @@ function SudokuGrid(props) {
             isWarning={cell.isWarning}
             // Functions
             updateGridObject={updateGridObject}
-            unselectAllCells={unselectAllCells}
           />
         )
       })}

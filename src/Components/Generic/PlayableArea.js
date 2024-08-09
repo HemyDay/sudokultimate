@@ -17,14 +17,14 @@ function PlayableArea() {
   document.addEventListener('keydown', (event) => {
     switch (event.key) {
       case 'Control' : if (isCtrlDown === false) {setIsCtrlDown(true)}; ; break;
-      case 'Shift' : if (isCtrlDown === true) {setIsShiftDown(true)}; ; break;
+      case 'Shift' : if (isShiftDown === false) {setIsShiftDown(true)}; ; break;
     }
   });
 
   document.addEventListener('keyup', (event) => {
     switch (event.key) {
       case 'Control' : if (isCtrlDown === true) {setIsCtrlDown(false)}; break;
-      case 'Shift' : if (isCtrlDown === true) {setIsShiftDown(false)}; break;
+      case 'Shift' : if (isShiftDown === true) {setIsShiftDown(false)}; break;
     }
   });
 
