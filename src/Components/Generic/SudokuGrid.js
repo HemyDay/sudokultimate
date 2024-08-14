@@ -136,8 +136,6 @@ function SudokuGrid(props) {
             id={cell.id}
             // Keyboard and mouse inputs
             isMouseDown={isMouseDown}
-            isCtrlDown={props.isCtrlDown}
-            isShiftDown={props.isShiftDown}
             // Modes
             noteMode={noteMode}
             typeOfSelect={typeOfSelect}

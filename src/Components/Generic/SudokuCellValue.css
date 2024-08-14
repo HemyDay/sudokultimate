@@ -3,6 +3,7 @@
 .sudoku_cell_value {
   width: 36px;
   height: 36px;
+  font-size: 20px;
   text-align: center;
   line-height: 40px;
   margin: 6px;
