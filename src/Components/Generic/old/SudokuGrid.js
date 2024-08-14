@@ -1,15 +1,17 @@
 // --- IMPORTS --- //
+
 // packages ----------------------------------------------------------------
-import React, {useState} from "react";
+import React, { useState, useRef, useEffect } from "react";
 // components --------------------------------------------------------------
-import SudokuGrid from "./SudokuGrid";
-import GameMenu from "./GameMenu";
+import SudokuCell from './SudokuCell';
+import NumberKeyListener from "../../Functions/NumberKeyListener";
 // styles ------------------------------------------------------------------
-import './PlayableArea.css';
+import './SudokuGrid.css';
+// functions ---------------------------------------------------------------
+
 
 // --- COMPONENT --- //
-function PlayableArea() {
-
+function SudokuGrid(props) {
   const [gridObject, setGridObject] = useState([
     {"id": "111" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "121" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
@@ -93,21 +95,68 @@ function PlayableArea() {
     {"id": "989" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "999" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
   ]);
-
+  
   const updateGridObject = (cellID, change, newValue) => {
     setGridObject((prevGrid) => prevGrid.map(cell =>
       cell.id === cellID ? { ...cell, [change]: newValue } : cell
     ));
   };
-  
+
+  const handleNumberPress = (number) => {
+    setGridObject((prevGrid) =>
+      prevGrid.map((cell) =>
+        cell.isSelected && cell.isEditable
+          ? { ...cell, value: parseInt(number, 10) }
+          : cell
+      )
+    );
+  };
+
+  const [isMouseDown,   setIsMouseDown]   = useState(false);              // Variable to keep track of the state of the mouse down event
+  const [noteMode,      setNoteMode]      = useState(false);              // Variable to keep track of the state of the note mode
+  const [typeOfSelect,  setTypeOfSelect] = useState(false);               // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
+
+  const handleMouseDown = () => {setIsMouseDown(true);};                  // Event handler for when the mouse button is pressed down
+  const handleMouseUp = () => {setIsMouseDown(false);};                   // Event handler for when the mouse button is released
+
+  // --- RETURN --- //
   return (
-    <section className="playable_area">
-      <SudokuGrid gridObject={gridObject}/>
-      <GameMenu/>
-    </section>
+    <div className="sudoku_grid"
+      onContextMenu={(e) => {e.preventDefault();}}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+    >
+      <NumberKeyListener onNumberPress={handleNumberPress} />
+      {gridObject.map((cell) => {
+        return(
+          <SudokuCell
+            //Utils
+            key={cell.id} 
+            id={cell.id}
+            // Keyboard and mouse inputs
+            isMouseDown={isMouseDown}
+            // Modes
+            noteMode={noteMode}
+            typeOfSelect={typeOfSelect}
+            setTypeOfSelect={setTypeOfSelect}
+            // Values
+            value={cell.value}
+            isSelected={cell.isSelected}
+            isEditable={cell.isEditable}
+            isWarning={cell.isWarning}
+            // Functions
+            updateGridObject={updateGridObject}
+          />
+        )
+      })}
+
+    </div>
+
   );
-  
 }
 
 // --- EXPORT --- //
-export default PlayableArea;
+export default SudokuGrid;
+
+

@@ -1,0 +1,32 @@
+/* Sets style for sudoku cells */
+.sudoku_cell {
+  width: 48px;
+  height: 48px;
+  border: solid 1px gray;
+  user-select: none;
+}
+
+/* Set horizontal lines for Squares */
+.sudoku_cell[cell_row^="1"], .sudoku_cell[cell_row^="4"], .sudoku_cell[cell_row^="7"]{
+  border-top: solid 2px black;
+}
+.sudoku_cell[cell_row^="9"]{
+  border-bottom: solid 2px black;
+}
+
+/* Set vertical lines for Squares */
+.sudoku_cell[cell_col^="1"], .sudoku_cell[cell_col^="4"], .sudoku_cell[cell_col^="7"]{
+  border-left: solid 2px black;
+}
+.sudoku_cell[cell_col^="9"]{
+  border-right: solid 2px black;
+}
+
+.sudoku_cell[cell_is-editable='true']{
+  cursor:pointer;
+}
+
+
+.sudoku_cell[cell_is-selected=true]{
+  background-color: lightblue;
+}
