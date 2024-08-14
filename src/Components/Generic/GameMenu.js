@@ -7,11 +7,14 @@ import MenuButtons from "./MenuButtons";
 import './GameMenu.css';
 
 // --- COMPONENT --- //
-function GameMenu() {
+function GameMenu(props) {
   
   return (
     <section className="game_menu">
       <MenuButtons/>
+      <div>
+        <p>pressed key : {props.pressedKey} </p>
+      </div>
     </section>
   );
   

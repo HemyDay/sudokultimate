@@ -4,12 +4,15 @@ import React, {useState} from "react";
 // components --------------------------------------------------------------
 import SudokuGrid from "./SudokuGrid";
 import GameMenu from "./GameMenu";
+
+import KeyInputListener from "../../Functions/KeyInputListener";
 // styles ------------------------------------------------------------------
 import './PlayableArea.css';
 
 // --- COMPONENT --- //
 function PlayableArea() {
 
+  // GRID OBJECT -----------------------------------------------------------
   const [gridObject, setGridObject] = useState([
     {"id": "111" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "121" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
@@ -99,11 +102,41 @@ function PlayableArea() {
       cell.id === cellID ? { ...cell, [change]: newValue } : cell
     ));
   };
+
+  // KEY INPUTS ------------------------------------------------------------
+
+  const [pressedKey, setPressedKey] = useState(null)
+  const possibleKeys = ["Enter"]
   
+  const onKeyPress = (keyPressed) => {
+    setPressedKey(keyPressed);
+    console.log("onKeyPress : " + keyPressed + " pressed")
+  }; 
+
+  const onKeyRelease = (keyReleased) => {
+    console.log("onKeyRelease : " + keyReleased + " released")
+    setPressedKey(null);
+  };
+  
+  // --- RETURN --- //
   return (
     <section className="playable_area">
-      <SudokuGrid gridObject={gridObject}/>
-      <GameMenu/>
+
+      <KeyInputListener 
+        onKeyPress={onKeyPress} 
+        onKeyRelease={onKeyRelease} 
+        possibleKeys={possibleKeys} 
+        pressedKey={pressedKey}
+      />
+
+      <SudokuGrid 
+        gridObject={gridObject}
+      />
+
+      <GameMenu 
+        pressedKey={pressedKey} 
+      />
+
     </section>
   );
   
