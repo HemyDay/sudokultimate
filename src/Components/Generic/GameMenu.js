@@ -13,7 +13,8 @@ function GameMenu(props) {
     <section className="game_menu">
       <MenuButtons/>
       <div>
-        <p>pressed key : {props.pressedKey} </p>
+        <p>Pressed key : {props.pressedKey} </p>
+        <p>Note mode : {props.isInNoteMode.toString()}</p>
       </div>
     </section>
   );

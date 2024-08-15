@@ -33,6 +33,7 @@ function MenuButtons() {
         {digits.map((digit) => {
           return(
             <button 
+              key={digit}
               className="num_pad_button menu_button" 
               onMouseDown={() => simulateKeyPress(digit)} 
               onMouseUp={() => simulateKeyRelease(digit)} 

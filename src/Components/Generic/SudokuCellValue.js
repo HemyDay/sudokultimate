@@ -18,15 +18,14 @@ function SudokuCellValue(props) {
     
     case props.cellValue.length > 1 : 
       return (
-        <div className="sudoku_cell_value notes_mode" >
-          {props.cellValue.map(
-            note => {
-              if (note === 0) return (<p> </p>);
-              else return (<p>{note}</p>); 
-            }
-          )}
+        <div className="sudoku_cell_value notes_mode">
+          {props.cellValue.map((note, index) => {
+            if (note === 0) return <p key={index}> </p>;
+            else return <p key={index}>{note}</p>;
+          })}
         </div>
-      ); break;
+      ); 
+    break;
     
     default:
       return (

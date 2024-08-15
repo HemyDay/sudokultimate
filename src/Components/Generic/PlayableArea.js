@@ -96,8 +96,6 @@ function PlayableArea() {
     {"id": "989" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "999" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
   ]);
-
-
   const updateGridObject = (cellID, change, newValue) => {                  // Function to update the gridObject
     setGridObject((prevGrid) => prevGrid.map(cell =>
       cell.id === cellID ? { ...cell, [change]: newValue } : cell
@@ -107,21 +105,67 @@ function PlayableArea() {
   // KEY INPUTS ------------------------------------------------------------
 
   const [pressedKey, setPressedKey] = useState(null)                        // Currently pressed key
-  const possibleKeys = ["Enter"]                                            // List of possible pressed keys apart from 0 to 9
+  const possibleKeys = ["Enter", "Shift", "Escape", "Control"]                         // List of possible pressed keys apart from 0 to 9
+  const [isInNoteMode, setIsInNoteMode] = useState(false);
+  
+  const handleNoteWriting = (prevGrid, cellID, number) => {
+    let noteValue = prevGrid.find(cell => cell.id === cellID).value;
+    return noteValue;
+  }
+
+  const handleNumberChange = (cell, number) => { 
+    if (cell.isSelected && cell.isEditable) {
+      let newCell = cell;
+      newCell.value === number ? newCell.value = 0 : newCell.value = number;
+      return newCell
+    } else {return cell;}
+  };
+
+  const handleNoteChange = (cell, number) => {
+    if (cell.isSelected && cell.isEditable) {
+      let newCell = cell;
+      if (newCell.value >= 0 && newCell.value <= 9) {newCell.value = [0,0,0,0,0,0,0,0,0]}
+      if (newCell.value[number-1] === 0 ) {newCell.value[number-1] = number} else {newCell.value[number-1] = 0}
+      return newCell;
+    } else {return cell;}
+  }
+
+  const handleNumberPress = (number) => {
+    if (isInNoteMode === false) {
+      setGridObject(gridObject.map((cell) => handleNumberChange(cell, number)));
+    } else if (isInNoteMode === true) {
+      setGridObject(gridObject.map((cell) => handleNoteChange(cell, number)));
+    }
+  };
+
+  const handleDeselectionOfAllGrid = () => {
+    setGridObject((prevGrid) =>
+      prevGrid.map((cell) =>
+        cell.isSelected
+          ? { ...cell, isSelected: false }
+          : cell
+      )
+    );
+  };
 
   const onKeyPress = (keyPressed) => {                                      // What happens when one of the valid keys is pressed
     setPressedKey(keyPressed);
-    console.log("onKeyPress : " + keyPressed + " pressed")
+    switch (true) {
+      case keyPressed >= 0 && keyPressed <= 9 : handleNumberPress(keyPressed);  break;     
+      case keyPressed === "Escape" :            handleDeselectionOfAllGrid();   break;  
+      case keyPressed === "Shift" :             setIsInNoteMode(!isInNoteMode); break;
+    }
   }; 
 
   const onKeyRelease = (keyReleased) => {                                   // What happens when one of the valid keys is released
     setPressedKey(null);
-    console.log("onKeyRelease : " + keyReleased + " released")
   };
-  
+
+
   // --- RETURN --- //
   return (
     <section className="playable_area">
+    
 
       <KeyInputListener 
         onKeyPress={onKeyPress} 
@@ -132,10 +176,15 @@ function PlayableArea() {
 
       <SudokuGrid 
         gridObject={gridObject}
+        updateGridObject={updateGridObject}
+        isInNoteMode={isInNoteMode}
+        handleDeselectionOfAllGrid={handleDeselectionOfAllGrid}
+        pressedKey={pressedKey} 
       />
 
       <GameMenu 
         pressedKey={pressedKey} 
+        isInNoteMode={isInNoteMode}
       />
 
     </section>
