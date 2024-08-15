@@ -2,10 +2,9 @@
 // packages ----------------------------------------------------------------
 import React, {useState} from "react";
 // components --------------------------------------------------------------
-import SudokuGrid from "./SudokuGrid";
-import GameMenu from "./GameMenu";
-
-import KeyInputListener from "../../Functions/KeyInputListener";
+import SudokuGrid from "./SudokuGrid";                                      // Grid part of the interface
+import GameMenu from "./GameMenu";                                          // Menu part of the interface
+import KeyInputListener from "../../Functions/KeyInputListener";            // Component to handle key events
 // styles ------------------------------------------------------------------
 import './PlayableArea.css';
 
@@ -13,7 +12,8 @@ import './PlayableArea.css';
 function PlayableArea() {
 
   // GRID OBJECT -----------------------------------------------------------
-  const [gridObject, setGridObject] = useState([
+  
+  const [gridObject, setGridObject] = useState([                            // The object that contains all grid info
     {"id": "111" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "121" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
     {"id": "131" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
@@ -97,7 +97,8 @@ function PlayableArea() {
     {"id": "999" , "value": 0, "isSelected": false, "isWarning": false, "isEditable": true },
   ]);
 
-  const updateGridObject = (cellID, change, newValue) => {
+
+  const updateGridObject = (cellID, change, newValue) => {                  // Function to update the gridObject
     setGridObject((prevGrid) => prevGrid.map(cell =>
       cell.id === cellID ? { ...cell, [change]: newValue } : cell
     ));
@@ -105,17 +106,17 @@ function PlayableArea() {
 
   // KEY INPUTS ------------------------------------------------------------
 
-  const [pressedKey, setPressedKey] = useState(null)
-  const possibleKeys = ["Enter"]
-  
-  const onKeyPress = (keyPressed) => {
+  const [pressedKey, setPressedKey] = useState(null)                        // Currently pressed key
+  const possibleKeys = ["Enter"]                                            // List of possible pressed keys apart from 0 to 9
+
+  const onKeyPress = (keyPressed) => {                                      // What happens when one of the valid keys is pressed
     setPressedKey(keyPressed);
     console.log("onKeyPress : " + keyPressed + " pressed")
   }; 
 
-  const onKeyRelease = (keyReleased) => {
-    console.log("onKeyRelease : " + keyReleased + " released")
+  const onKeyRelease = (keyReleased) => {                                   // What happens when one of the valid keys is released
     setPressedKey(null);
+    console.log("onKeyRelease : " + keyReleased + " released")
   };
   
   // --- RETURN --- //

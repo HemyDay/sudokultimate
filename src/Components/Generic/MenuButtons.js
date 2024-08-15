@@ -1,6 +1,6 @@
 // --- IMPORTS --- //
 // packages ----------------------------------------------------------------
-import React, {useState} from "react";
+import React from "react";
 // components --------------------------------------------------------------
 
 // styles ------------------------------------------------------------------
@@ -8,27 +8,54 @@ import './MenuButtons.css';
 
 // --- COMPONENT --- //
 function MenuButtons() {
+
+  const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
   
+  // Function to simulate a keyboard press
+  const simulateKeyPress = (key) => {
+    // Create and dispatch a 'keydown' event
+    const keyDownEvent = new KeyboardEvent('keydown', { key });
+    window.dispatchEvent(keyDownEvent);
+  };
+
+  // Function to simulate a keyboard release
+  const simulateKeyRelease = (key) => {
+    // Create and dispatch a 'keydown' event
+    const keyUpEvent = new KeyboardEvent('keyup', { key });
+    window.dispatchEvent(keyUpEvent);
+  };
+
+
   return (
     <section className="menu_buttons">
+    
       <div className="num_pad">
-        <button className="num_pad_button">1</button>
-        <button className="num_pad_button">2</button>
-        <button className="num_pad_button">3</button>
-        <button className="num_pad_button">4</button>
-        <button className="num_pad_button">5</button>
-        <button className="num_pad_button">6</button>
-        <button className="num_pad_button">7</button>
-        <button className="num_pad_button">8</button>
-        <button className="num_pad_button">9</button>
+        {digits.map((digit) => {
+          return(
+            <button 
+              className="num_pad_button menu_button" 
+              onMouseDown={() => simulateKeyPress(digit)} 
+              onMouseUp={() => simulateKeyRelease(digit)} 
+              onMouseLeave={() => simulateKeyRelease(digit)}
+            >
+              {digit}
+            </button>
+          )
+        })}
       </div>
+
       <div className="tool_pad">
-        <button className="tool_pad_button">erase</button>
-        <button className="tool_pad_button">notes</button>
+        <button className="tool_pad_button menu_button"
+          onMouseDown={() => simulateKeyPress("0")} 
+          onMouseUp={() => simulateKeyRelease("0")} 
+          onMouseLeave={() => simulateKeyRelease("0")}
+        >
+          erase
+        </button>
+        <button className="tool_pad_button menu_button">notes</button>
       </div>
     </section>
   );
-  
 }
 
 // --- EXPORT --- //
