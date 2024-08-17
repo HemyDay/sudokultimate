@@ -1,43 +1,46 @@
+// --- IMPORTS --- //
 import React, { useEffect, useRef } from "react";
 
+// --- COMPONENT --- //
 function KeyInputListener({ onKeyPress, onKeyRelease, possibleKeys, pressedKey }) {
-  // Ref to track whether a key is currently pressed
+  // Ref to track if a key is currently pressed
   const isKeyPressed = useRef(false);
 
   useEffect(() => {
-    // Function to handle the 'keydown' event
+    // Function to handle the keydown event
     const handleKeyDown = (event) => {
       const isDigitKey = event.key >= "0" && event.key <= "9";
       const isAllowedKey = possibleKeys.includes(event.key);
 
-      // Trigger onKeyPress if no key is currently pressed, and the pressed key is either a digit or in possibleKeys
+      // Trigger onKeyPress if the key is valid and not already pressed
       if (!isKeyPressed.current && (isDigitKey || isAllowedKey)) {
         onKeyPress(event.key);
-        isKeyPressed.current = true; // Mark key as pressed
+        isKeyPressed.current = true;
       }
     };
 
-    // Function to handle the 'keyup' event
+    // Function to handle the keyup event
     const handleKeyUp = (event) => {
-      // Trigger onKeyRelease if a key was pressed and the released key matches the pressedKey prop
+      // Trigger onKeyRelease if the released key matches the pressed key
       if (isKeyPressed.current && event.key === pressedKey) {
         onKeyRelease(event.key);
-        isKeyPressed.current = false; // Reset key pressed status
+        isKeyPressed.current = false;
       }
     };
 
-    // Add event listeners for keydown and keyup on component mount
+    // Add event listeners for keydown and keyup
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
 
-    // Cleanup event listeners on component unmount to prevent memory leaks
+    // Cleanup event listeners on component unmount
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [onKeyPress, onKeyRelease, possibleKeys, pressedKey]); // Dependencies: Re-run effect if any of these props change
+  }, [onKeyPress, onKeyRelease, possibleKeys, pressedKey]);
 
-  return null; // This component does not render anything
+  return null; // This component does not render any UI
 }
 
+// --- EXPORT --- //
 export default KeyInputListener;

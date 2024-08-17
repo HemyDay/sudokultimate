@@ -1,55 +1,53 @@
 // --- IMPORTS --- //
-// packages ----------------------------------------------------------------
-import React, {useState} from "react";
-// components --------------------------------------------------------------
+import React, { useState } from "react";
 import SudokuCell from "./SudokuCell";
-// styles ------------------------------------------------------------------
 import './SudokuGrid.css';
 
 // --- COMPONENT --- //
 function SudokuGrid(props) {
+  // State to track mouse button status
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  // State to track selection type (select/unselect)
+  const [typeOfSelect, setTypeOfSelect] = useState(false);
 
-    
-  const [isMouseDown,   setIsMouseDown]   = useState(false);              // Variable to keep track of the state of the mouse down event
-  const [typeOfSelect,  setTypeOfSelect] = useState(false);               // Variable to keep track of the state of the selection type (is the user selecting or unselecting cells)
-  const handleMouseDown = () => {setIsMouseDown(true);};                  // Event handler for when the mouse button is pressed down
-  const handleMouseUp = () => {setIsMouseDown(false);};                   // Event handler for when the mouse button is released
+  // Event handler for mouse down event
+  const handleMouseDown = () => {
+    setIsMouseDown(true);
+  };
 
-  
+  // Event handler for mouse up event
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
   return (
     <section className="sudoku_grid"
-      onContextMenu={(e) => {e.preventDefault();}}
+      onContextMenu={(e) => { e.preventDefault(); }}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
-    {props.gridObject.map((cell) => {
-        return(
+      {props.gridObject.map((cell) => {
+        return (
           <SudokuCell
-            //Utils
-            key={cell.id} 
+            key={cell.id}
             id={cell.id}
-            // Values
             value={cell.value}
             isSelected={cell.isSelected}
             isEditable={cell.isEditable}
             isWarning={cell.isWarning}
-            // Grid object
             updateGridObject={props.updateGridObject}
             gridObject={props.gridObject}
-            // Mouse events
             typeOfSelect={typeOfSelect}
             setTypeOfSelect={setTypeOfSelect}
             isMouseDown={isMouseDown}
             handleDeselectionOfAllGrid={props.handleDeselectionOfAllGrid}
-            // Keyboard events
-            pressedKey={props.pressedKey} 
+            pressedKey={props.pressedKey}
           />
         )
       })}
     </section>
   );
-  
 }
 
 // --- EXPORT --- //

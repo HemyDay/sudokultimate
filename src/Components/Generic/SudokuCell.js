@@ -1,27 +1,25 @@
 // --- IMPORTS --- //
-
-// packages ----------------------------------------------------------------
-import React, { useState, useRef } from "react";
-// styles ------------------------------------------------------------------
+import React from "react";
 import './SudokuCell.css';
-// components --------------------------------------------------------------
 import SudokuCellValue from "./SudokuCellValue.js";
-// function ----------------------------------------------------------------
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
-
+  // Function to handle cell selection on mouse down
   function initiateCellSelection() {
-    if (props.pressedKey !== "Control") {props.handleDeselectionOfAllGrid()};
+    if (props.pressedKey !== "Control") {
+      props.handleDeselectionOfAllGrid();
+    }
     if (!props.isSelected) {
       props.updateGridObject(props.id, 'isSelected', true);
-      props.setTypeOfSelect(true)
-    } else if (props.isSelected) {
+      props.setTypeOfSelect(true);
+    } else {
       props.updateGridObject(props.id, 'isSelected', false);
-      props.setTypeOfSelect(false)
+      props.setTypeOfSelect(false);
     }
-  } 
-  
+  }
+
+  // Function to handle cell selection on mouse hover
   function hoverCellSelection() {
     if (props.isMouseDown) {
       if (props.typeOfSelect && !props.isSelected) {
@@ -36,13 +34,11 @@ function SudokuCell(props) {
   return (
     <div className="sudoku_cell"
       id={props.id}
-      // Properties for CSS
       cell_row={parseInt(props.id[0])}
       cell_col={parseInt(props.id[1])}
       cell_square={parseInt(props.id[2])}
       cell_is-selected={props.isSelected.toString()}
       cell_is-editable={props.isEditable.toString()}
-      // Event handlers
       onMouseDown={initiateCellSelection}
       onMouseEnter={hoverCellSelection}
     >
