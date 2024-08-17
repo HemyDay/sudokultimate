@@ -26,32 +26,46 @@ function PlayableArea() {
   const [isInNoteMode, setIsInNoteMode] = useState(false);
 
   const handleNumberChange = (cell, number) => { 
+  // Check if the cell is selected and editable
     if (cell.isSelected && cell.isEditable) {
+    // Save current state of the cell in newCell
       let newCell = cell;
+    // If the cell.value is not already the number, update it to be 0, else update it to be the number
       newCell.value === number ? newCell.value = 0 : newCell.value = number;
+    // return the new cell with changed value
       return newCell
+    // If the cell is not selected or editable, return its current state
     } else {return cell;}
   };
 
   const handleNoteChange = (cell, number) => {
+  // Check if the cell is selected and editable
     if (cell.isSelected && cell.isEditable) {
+    // Save current state of the cell in newCell
       let newCell = cell;
+    // If the cell.value is not already an array, create one
       if (newCell.value >= 0 && newCell.value <= 9) {newCell.value = [0,0,0,0,0,0,0,0,0]}
+    // Toggle the selected number in the cell.value array (0-indexed)
       if (newCell.value[number-1] === 0 ) {newCell.value[number-1] = number} else {newCell.value[number-1] = 0}
+    // return the new cell with changed array
       return newCell;
+  // If the cell is not selected or editable, return its current state
     } else {return cell;}
   }
 
   // Function to handle number input for normal or note mode
   const handleNumberPress = (number) => {
+  // Check if the game is not in note mode
     if (!isInNoteMode) {
+    // Execute the funciton to handle number change
       setGridObject(gridObject.map((cell) => handleNumberChange(cell, number)));
     } else {
+    // Execute the function to handle note change
       setGridObject(gridObject.map((cell) => handleNoteChange(cell, number)));
     }
   };
 
-  // Function to deselect all selected cells in the grid
+  // Function to deselect all selected cells in the grid. For each cell in the GridObject, set its isSelected property to false
   const handleDeselectionOfAllGrid = () => {
     setGridObject((prevGrid) =>
       prevGrid.map((cell) =>
@@ -62,6 +76,7 @@ function PlayableArea() {
 
   // Key press handler function
   const onKeyPress = (keyPressed) => {
+  // Save the currently pressed key in pressedKey
     setPressedKey(keyPressed);
     switch (true) {
       case keyPressed >= 0 && keyPressed <= 9:
@@ -76,7 +91,7 @@ function PlayableArea() {
     }
   };
 
-  // Key release handler function
+  // Key release handler function, sets presedKey to null
   const onKeyRelease = (keyReleased) => {
     setPressedKey(null);
   };

@@ -20,7 +20,7 @@ function MenuButtons() {
 
   // Function to simulate a keyboard release
   const simulateKeyRelease = (key) => {
-    // Create and dispatch a 'keydown' event
+    // Create and dispatch a 'keyup' event
     const keyUpEvent = new KeyboardEvent('keyup', { key });
     window.dispatchEvent(keyUpEvent);
   };
