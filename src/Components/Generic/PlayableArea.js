@@ -9,7 +9,7 @@ import Grid from "../../Grids/Grid_Blank.json"
 // --- COMPONENT --- //
 function PlayableArea() {
   // State to store grid cell data
-  const [gridObject, setGridObject] = useState(Grid.grid_blank);
+  const [gridObject, setGridObject] = useState(Grid.grid_with_zones);
 
   // Function to update grid cell properties
   const updateGridObject = (cellID, change, newValue) => {

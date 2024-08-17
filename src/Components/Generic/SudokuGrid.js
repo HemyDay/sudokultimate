@@ -36,6 +36,7 @@ function SudokuGrid(props) {
             isSelected={cell.isSelected}
             isEditable={cell.isEditable}
             isWarning={cell.isWarning}
+            zone={cell.zone}
             updateGridObject={props.updateGridObject}
             gridObject={props.gridObject}
             typeOfSelect={typeOfSelect}
