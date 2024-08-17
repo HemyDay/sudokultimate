@@ -1,0 +1,15 @@
+.menu_buttons{
+  border: solid 1px lightgray;
+}
+
+.num_pad{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: fit-content;
+}
+
+.menu_button{
+  height: 45px;
+  width: 45px;
+  margin : 2px;
+}

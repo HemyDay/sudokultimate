@@ -4,8 +4,6 @@
   height: 48px;
   border: solid 1px gray;
   user-select: none;
-  background-repeat: no-repeat;
-  background-position: center;
 }
 
 /* Set horizontal lines for Squares */
@@ -27,6 +25,7 @@
 .sudoku_cell[cell_is-editable='true']{
   cursor:pointer;
 }
+
 
 .sudoku_cell[cell_is-selected=true]{
   background-color: lightblue;
