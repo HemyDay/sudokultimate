@@ -42,54 +42,27 @@ function SudokuCell(props) {
     }
   }
 
+  // Determine the image based on surrounding zones
+  const getSurroundingImage = (rowOffset, colOffset, closed, open) => {
+    const adjacentCell = props.gridObject.find(cell => 
+      cell.id.substring(0,2) === `${parseInt(props.id[0]) + rowOffset}${parseInt(props.id[1]) + colOffset}`
+    );
+    return !adjacentCell || adjacentCell.zone !== props.zone ? closed : open;
+  };
+
+  // Determine surrounding zones
   const determineSurroundingZones = () => {
-    let top = '';
-    let right = '';
-    let bottom = '';
-    let left = '';
 
-    let cellrow = parseInt(props.id[0]);
-    let cellcol = parseInt(props.id[1]);
+    if (props.zone.substring(0,2) === "00") return '';
 
-    if (props.zone !== "00") {
+    const top = parseInt(props.id[0]) === 1 ? line_top_cl : getSurroundingImage(-1, 0, line_top_cl, line_top_op);
+    const right = parseInt(props.id[1]) === 9 ? line_rgh_cl : getSurroundingImage(0, 1, line_rgh_cl, line_rgh_op);
+    const down = parseInt(props.id[0]) === 9 ? line_dwn_cl : getSurroundingImage(1, 0, line_dwn_cl, line_dwn_op);
+    const left = parseInt(props.id[1]) === 1 ? line_lft_cl : getSurroundingImage(0, -1, line_lft_cl, line_lft_op);
 
-      if (cellrow === 1) { 
-        top = line_top_cl;
-      }
-      else if (cellrow !== 1) {  
-        let topCellObject = props.gridObject.find((cell) => cell.id.substring(0,2) === `${cellrow-1}${cellcol}`);
-        topCellObject.zone === props.zone ? top = line_top_op : top = line_top_cl;
-      }
+    return `url(${top}), url(${right}), url(${down}), url(${left})`;
+  };
 
-      if (cellcol === 9) { 
-        right = line_rgh_cl;
-      }
-      else if (cellcol !== 9) {  
-        let rghCellObject = props.gridObject.find((cell) => cell.id.substring(0,2) === `${cellrow}${cellcol+1}`);
-        rghCellObject.zone === props.zone ? right = line_rgh_op : right = line_rgh_cl;
-      }
-
-      if (cellrow === 9) { 
-        bottom = line_dwn_cl;
-      }
-      else if (cellrow !== 9) {  
-        let botCellObject = props.gridObject.find((cell) => cell.id.substring(0,2) === `${cellrow+1}${cellcol}`);
-        botCellObject.zone === props.zone ? bottom = line_dwn_op  : bottom = line_dwn_cl;
-      }
-
-      if (cellcol === 1) { 
-        left = line_lft_cl;
-      }
-      else if (cellcol !== 1) {  
-        let lftCellObject = props.gridObject.find((cell) => cell.id.substring(0,2) === `${cellrow}${cellcol-1}`);
-        lftCellObject.zone === props.zone ? left = line_lft_op : left = line_lft_cl;
-      }
-  
-    }
-    
-    return 'url('+top+'),'+'url('+right+'),'+'url('+bottom+'),'+' url('+left+')'
-  }
-   
   const generateCellStyle = (props) => {
     let style = {
       // backgroundColor : randomColors[Number(props.zone.substring(0,2))-1],
