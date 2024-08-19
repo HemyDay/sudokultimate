@@ -3,10 +3,10 @@
 .sudoku_cell_value {
   width: 36px;
   height: 36px;
-  font-size: 20px;
+  font-size: 25px;
   text-align: center;
   line-height: 36px;
-  margin: 6px;
+  margin: 8px;
 }
 
 .notes_mode {
@@ -17,8 +17,9 @@
 
 .notes_mode > p {
   display: inline-block;
-  font-size: 11px;
-  line-height: 11px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 12px;
   margin: 0;
   padding:0;
 }

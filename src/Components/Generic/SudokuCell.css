@@ -1,8 +1,8 @@
 /* Sets style for sudoku cells */
 .sudoku_cell {
-  width: 48px;
-  height: 48px;
-  border: solid 1px gray;
+  width: 52px;
+  height: 52px;
+  border: solid 1px lightgray;
   user-select: none;
   background-repeat: no-repeat;
   background-position: center;
