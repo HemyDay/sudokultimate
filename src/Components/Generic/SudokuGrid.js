@@ -20,6 +20,15 @@ function SudokuGrid(props) {
     setIsMouseDown(false);
   };
 
+  let idOfAlreadyGeneratedZones = [];
+  
+  const determinezoneValue = (zone) => {
+    if (idOfAlreadyGeneratedZones.includes(zone.substring(0,2)) == false) {
+      idOfAlreadyGeneratedZones.push(zone.substring(0,2))
+      return parseInt(zone.substring(3,5))
+    } else {return "0"}
+  }
+
   return (
     <section className="sudoku_grid"
       onContextMenu={(e) => { e.preventDefault(); }}
@@ -44,6 +53,7 @@ function SudokuGrid(props) {
             isMouseDown={isMouseDown}
             handleDeselectionOfAllGrid={props.handleDeselectionOfAllGrid}
             pressedKey={props.pressedKey}
+            cellValue={determinezoneValue(cell.zone)}
           />
         )
       })}

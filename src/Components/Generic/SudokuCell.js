@@ -72,7 +72,6 @@ function SudokuCell(props) {
   }
   // --- RETURN --- //
   return (
-    
     <div className="sudoku_cell"
       id={props.id}
       cell_row={parseInt(props.id[0])}
@@ -85,7 +84,7 @@ function SudokuCell(props) {
       style={generateCellStyle(props)}
     >
       <SudokuCellValue cellValue={props.value} />
-      <span className="killer_zone_value">{parseInt(props.zone.substring(3,5))}</span>
+      <span className="killer_zone_value" cellvalue={props.cellValue.toString()}>{props.cellValue}</span>
     </div>
   );
 }
