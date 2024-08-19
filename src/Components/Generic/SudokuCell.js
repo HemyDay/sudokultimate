@@ -85,6 +85,7 @@ function SudokuCell(props) {
       style={generateCellStyle(props)}
     >
       <SudokuCellValue cellValue={props.value} />
+      <span className="killer_zone_value">{parseInt(props.zone.substring(3,5))}</span>
     </div>
   );
 }
