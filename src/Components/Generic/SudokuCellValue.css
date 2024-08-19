@@ -9,6 +9,11 @@
   margin: 8px;
 }
 
+.sudoku_cell_value[is_editable="false"]{
+  font-weight:bold;
+}
+
+
 .notes_mode {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

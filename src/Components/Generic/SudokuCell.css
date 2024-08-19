@@ -25,10 +25,6 @@
   border-right: solid 2px black;
 }
 
-.sudoku_cell[cell_is-editable='true']{
-  cursor:pointer;
-}
-
 .sudoku_cell[cell_is-selected=true], .sudoku_cell[cell_is-selected=true] > span {
   background-color: lightblue;
 }

@@ -16,16 +16,15 @@ import line_top_op from "../../Assets/line_top_op.svg";
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
-//  const randomColors = ["#82531E80","#2219F880","#DE9BE480","#96ACF280","#DA3D1680","#96DF5E80","#18568B80","#087C7280","#D4510080","#EEFFAA80","#1D584C80","#69718580","#9D92A480","#C283A280","#F4712780","#CBFF9280","#E036B480","#B6F70080","#9F31FA80","#339ACC80","#9BCC9980","#1A175980","#BC8C3880","#F9401E80","#37606F80","#33299D80","#17836E80","#6D302680","#8AC94580","#CC5E1B80","#AE373680","#C95A85"]
   // Function to handle cell selection on mouse down
   function initiateCellSelection() {
     if (props.pressedKey !== "Control") {
       props.handleDeselectionOfAllGrid();
     }
-    if (!props.isSelected && props.isEditable) {
+    if (!props.isSelected) {
       props.updateGridObject(props.id, 'isSelected', true);
       props.setTypeOfSelect(true);
-    } else if (props.isSelected && props.isEditable) {
+    } else if (props.isSelected) {
       props.updateGridObject(props.id, 'isSelected', false);
       props.setTypeOfSelect(false);
     }
@@ -34,9 +33,9 @@ function SudokuCell(props) {
   // Function to handle cell selection on mouse hover
   function hoverCellSelection() {
     if (props.isMouseDown) {
-      if (props.typeOfSelect && !props.isSelected && props.isEditable) {
+      if (props.typeOfSelect && !props.isSelected) {
         props.updateGridObject(props.id, 'isSelected', true);
-      } else if (!props.typeOfSelect && props.isSelected && props.isEditable) {
+      } else if (!props.typeOfSelect && props.isSelected) {
         props.updateGridObject(props.id, 'isSelected', false);
       }
     }
@@ -65,7 +64,6 @@ function SudokuCell(props) {
 
   const generateCellStyle = (props) => {
     let style = {
-      // backgroundColor : randomColors[Number(props.zone.substring(0,2))-1],
       backgroundImage : determineSurroundingZones(),
     };
     return style;
@@ -83,7 +81,7 @@ function SudokuCell(props) {
       onMouseEnter={hoverCellSelection}
       style={generateCellStyle(props)}
     >
-      <SudokuCellValue cellValue={props.value} />
+      <SudokuCellValue cellValue={props.value} is_editable={props.isEditable.toString()}/>
       <span className="killer_zone_value" cellvalue={props.cellValue.toString()}>{props.cellValue}</span>
     </div>
   );
