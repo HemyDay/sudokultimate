@@ -29,10 +29,10 @@ function SudokuCell(props) {
       props.handleDeselectionOfAllGrid();
     }
     if (!CELL.isSelected) {
-      props.updateGridObject(CELL.id, 'isSelected', true);
+      props.updateACellByID(CELL.id, 'isSelected', true);
       props.setTypeOfSelect(true);
     } else if (props.isSelected) {
-      props.updateGridObject(CELL.id, 'isSelected', false);
+      props.updateACellByID(CELL.id, 'isSelected', false);
       props.setTypeOfSelect(false);
     }
   }
@@ -41,9 +41,9 @@ function SudokuCell(props) {
   function hoverCellSelection() {
     if (props.isMouseDown) {
       if (props.typeOfSelect && !CELL.isSelected) {
-        props.updateGridObject(CELL.id, 'isSelected', true);
+        props.updateACellByID(CELL.id, 'isSelected', true);
       } else if (!props.typeOfSelect && CELL.isSelected) {
-        props.updateGridObject(CELL.id, 'isSelected', false);
+        props.updateACellByID(CELL.id, 'isSelected', false);
       }
     }
   }

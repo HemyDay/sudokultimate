@@ -34,7 +34,7 @@ function SudokuGrid(props) {
             key={cell.id}
             id={cell.id}
             cell={cell}
-            updateGridObject={props.updateGridObject}
+            updateACellByID={props.updateACellByID}
             gridObject={props.gridObject}
             typeOfSelect={typeOfSelect}
             setTypeOfSelect={setTypeOfSelect}
