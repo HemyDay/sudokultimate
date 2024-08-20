@@ -5,53 +5,15 @@
   import SudokuCellValue from "./SudokuCellValue.js";
 // STYLE
   import './SudokuCell.css';
-  // FUNCTIONS
+// FUNCTIONS
   import handleCellSelection from "../../Functions/handleCellSelecion.js";
-
-// ASSETS 
-import line_dwn_cl from "../../Assets/line_dwn_cl.svg";
-import line_dwn_op from "../../Assets/line_dwn_op.svg";
-import line_lft_cl from "../../Assets/line_lft_cl.svg";
-import line_lft_op from "../../Assets/line_lft_op.svg";
-import line_rgh_cl from "../../Assets/line_rgh_cl.svg";
-import line_rgh_op from "../../Assets/line_rgh_op.svg";
-import line_top_cl from "../../Assets/line_top_cl.svg";
-import line_top_op from "../../Assets/line_top_op.svg";
+  import generateCellStyle from "../../Functions/generateCellStyle.js";
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
   // VARIABLES DECLARATION
     const CELL = props.cell;
-
-  // Determine the image based on surrounding zones
-  const getSurroundingImage = (rowOffset, colOffset, closed, open) => {
-    const adjacentCell = props.gridObject.find(cell => 
-      cell.id.substring(0,2) === `${parseInt(props.id[0]) + rowOffset}${parseInt(props.id[1]) + colOffset}`
-    );
-    return !adjacentCell || adjacentCell.zone !== CELL.zone ? closed : open;
-  };
-
-  // Determine surrounding zones
-  const determineSurroundingZones = () => {
-
-    if (CELL.zone.substring(0,2) === "00") return '';
-
-    const top = parseInt(CELL.id[0]) === 1 ? line_top_cl : getSurroundingImage(-1, 0, line_top_cl, line_top_op);
-    const right = parseInt(CELL.id[1]) === 9 ? line_rgh_cl : getSurroundingImage(0, 1, line_rgh_cl, line_rgh_op);
-    const down = parseInt(CELL.id[0]) === 9 ? line_dwn_cl : getSurroundingImage(1, 0, line_dwn_cl, line_dwn_op);
-    const left = parseInt(CELL.id[1]) === 1 ? line_lft_cl : getSurroundingImage(0, -1, line_lft_cl, line_lft_op);
-
-    return `url(${top}), url(${right}), url(${down}), url(${left})`;
-  };
-
-  const generateCellStyle = () => {
-    let style = {
-      backgroundImage : determineSurroundingZones(),
-    };
-    return style;
-  }
-
 
   // --- RETURN --- //
   return (
@@ -64,7 +26,7 @@ function SudokuCell(props) {
       cell_is-editable={CELL.isEditable.toString()}
       onMouseDown={(e) => {handleCellSelection(e, CELL, props)}}
       onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
-      style={generateCellStyle(props)}
+      style={generateCellStyle(CELL, props.gridObject)}
     >
       <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>
       <span className="killer_zone_value" zone_value={props.zoneValue.toString()}>{props.zoneValue}</span>
