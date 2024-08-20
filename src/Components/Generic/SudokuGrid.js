@@ -1,34 +1,26 @@
 // --- IMPORTS --- //
-import React, { useState } from "react";
-import SudokuCell from "./SudokuCell";
-import './SudokuGrid.css';
+// LIBRARIES
+  import React, { useState } from "react";
+// COMPONENTS
+  import SudokuCell from "./SudokuCell";
+// STYLE
+  import './SudokuGrid.css';
+// FUNCTIONS
+  import determineZoneValue from "../../Functions/determineZoneValue";
 
 // --- COMPONENT --- //
 function SudokuGrid(props) {
-  // State to track mouse button status
-  const [isMouseDown, setIsMouseDown] = useState(false);
-  // State to track selection type (select/unselect)
-  const [typeOfSelect, setTypeOfSelect] = useState(false);
 
-  // Event handler for mouse down event
-  const handleMouseDown = () => {
-    setIsMouseDown(true);
-  };
+  // VARIABLES DECLARATION
+    const [isMouseDown, setIsMouseDown] = useState(false);          // State to track mouse button status
+    const [typeOfSelect, setTypeOfSelect] = useState(false);        // State to track selection type (select/unselect)
+    let idOfAlreadyGeneratedZones = [];                             // Array with the id of already generated zones
 
-  // Event handler for mouse up event
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
+  // FUNCTIONS DECLARATION
+    const handleMouseDown = () => {setIsMouseDown(true);};          // Event handler for mouse down event
+    const handleMouseUp = () => {setIsMouseDown(false);};           // Event handler for mouse up event
 
-  let idOfAlreadyGeneratedZones = [];
-  
-  const determinezoneValue = (zone) => {
-    if (idOfAlreadyGeneratedZones.includes(zone.substring(0,2)) == false) {
-      idOfAlreadyGeneratedZones.push(zone.substring(0,2))
-      return parseInt(zone.substring(3,5))
-    } else {return "0"}
-  }
-
+  // RETURN
   return (
     <section className="sudoku_grid"
       onContextMenu={(e) => { e.preventDefault(); }}
@@ -41,11 +33,7 @@ function SudokuGrid(props) {
           <SudokuCell
             key={cell.id}
             id={cell.id}
-            value={cell.value}
-            isSelected={cell.isSelected}
-            isEditable={cell.isEditable}
-            isWarning={cell.isWarning}
-            zone={cell.zone}
+            cell={cell}
             updateGridObject={props.updateGridObject}
             gridObject={props.gridObject}
             typeOfSelect={typeOfSelect}
@@ -53,7 +41,7 @@ function SudokuGrid(props) {
             isMouseDown={isMouseDown}
             handleDeselectionOfAllGrid={props.handleDeselectionOfAllGrid}
             pressedKey={props.pressedKey}
-            cellValue={determinezoneValue(cell.zone)}
+            zoneValue={determineZoneValue(cell.zone, idOfAlreadyGeneratedZones)}
           />
         )
       })}

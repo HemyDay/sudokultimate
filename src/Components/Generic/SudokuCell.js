@@ -1,9 +1,13 @@
 // --- IMPORTS --- //
-import React from "react";
-import './SudokuCell.css';
-import SudokuCellValue from "./SudokuCellValue.js";
+// LIBRARIES
+  import React from "react";
+// COMPONENTS
+  import SudokuCellValue from "./SudokuCellValue.js";
+// STYLE
+  import './SudokuCell.css';
+// FUNCTIONS
 
-// --- STYLES --- //
+// ASSETS 
 import line_dwn_cl from "../../Assets/line_dwn_cl.svg";
 import line_dwn_op from "../../Assets/line_dwn_op.svg";
 import line_lft_cl from "../../Assets/line_lft_cl.svg";
@@ -16,16 +20,19 @@ import line_top_op from "../../Assets/line_top_op.svg";
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
+  // VARIABLES DECLARATION
+    const CELL = props.cell;
+
   // Function to handle cell selection on mouse down
   function initiateCellSelection() {
     if (props.pressedKey !== "Control") {
       props.handleDeselectionOfAllGrid();
     }
-    if (!props.isSelected) {
-      props.updateGridObject(props.id, 'isSelected', true);
+    if (!CELL.isSelected) {
+      props.updateGridObject(CELL.id, 'isSelected', true);
       props.setTypeOfSelect(true);
     } else if (props.isSelected) {
-      props.updateGridObject(props.id, 'isSelected', false);
+      props.updateGridObject(CELL.id, 'isSelected', false);
       props.setTypeOfSelect(false);
     }
   }
@@ -33,10 +40,10 @@ function SudokuCell(props) {
   // Function to handle cell selection on mouse hover
   function hoverCellSelection() {
     if (props.isMouseDown) {
-      if (props.typeOfSelect && !props.isSelected) {
-        props.updateGridObject(props.id, 'isSelected', true);
-      } else if (!props.typeOfSelect && props.isSelected) {
-        props.updateGridObject(props.id, 'isSelected', false);
+      if (props.typeOfSelect && !CELL.isSelected) {
+        props.updateGridObject(CELL.id, 'isSelected', true);
+      } else if (!props.typeOfSelect && CELL.isSelected) {
+        props.updateGridObject(CELL.id, 'isSelected', false);
       }
     }
   }
@@ -46,23 +53,23 @@ function SudokuCell(props) {
     const adjacentCell = props.gridObject.find(cell => 
       cell.id.substring(0,2) === `${parseInt(props.id[0]) + rowOffset}${parseInt(props.id[1]) + colOffset}`
     );
-    return !adjacentCell || adjacentCell.zone !== props.zone ? closed : open;
+    return !adjacentCell || adjacentCell.zone !== CELL.zone ? closed : open;
   };
 
   // Determine surrounding zones
   const determineSurroundingZones = () => {
 
-    if (props.zone.substring(0,2) === "00") return '';
+    if (CELL.zone.substring(0,2) === "00") return '';
 
-    const top = parseInt(props.id[0]) === 1 ? line_top_cl : getSurroundingImage(-1, 0, line_top_cl, line_top_op);
-    const right = parseInt(props.id[1]) === 9 ? line_rgh_cl : getSurroundingImage(0, 1, line_rgh_cl, line_rgh_op);
-    const down = parseInt(props.id[0]) === 9 ? line_dwn_cl : getSurroundingImage(1, 0, line_dwn_cl, line_dwn_op);
-    const left = parseInt(props.id[1]) === 1 ? line_lft_cl : getSurroundingImage(0, -1, line_lft_cl, line_lft_op);
+    const top = parseInt(CELL.id[0]) === 1 ? line_top_cl : getSurroundingImage(-1, 0, line_top_cl, line_top_op);
+    const right = parseInt(CELL.id[1]) === 9 ? line_rgh_cl : getSurroundingImage(0, 1, line_rgh_cl, line_rgh_op);
+    const down = parseInt(CELL.id[0]) === 9 ? line_dwn_cl : getSurroundingImage(1, 0, line_dwn_cl, line_dwn_op);
+    const left = parseInt(CELL.id[1]) === 1 ? line_lft_cl : getSurroundingImage(0, -1, line_lft_cl, line_lft_op);
 
     return `url(${top}), url(${right}), url(${down}), url(${left})`;
   };
 
-  const generateCellStyle = (props) => {
+  const generateCellStyle = () => {
     let style = {
       backgroundImage : determineSurroundingZones(),
     };
@@ -71,18 +78,18 @@ function SudokuCell(props) {
   // --- RETURN --- //
   return (
     <div className="sudoku_cell"
-      id={props.id}
-      cell_row={parseInt(props.id[0])}
-      cell_col={parseInt(props.id[1])}
-      cell_square={parseInt(props.id[2])}
-      cell_is-selected={props.isSelected.toString()}
-      cell_is-editable={props.isEditable.toString()}
+      id={CELL.id}
+      cell_row={parseInt(CELL.id[0])}
+      cell_col={parseInt(CELL.id[1])}
+      cell_square={parseInt(CELL.id[2])}
+      cell_is-selected={CELL.isSelected.toString()}
+      cell_is-editable={CELL.isEditable.toString()}
       onMouseDown={initiateCellSelection}
       onMouseEnter={hoverCellSelection}
       style={generateCellStyle(props)}
     >
-      <SudokuCellValue cellValue={props.value} is_editable={props.isEditable.toString()}/>
-      <span className="killer_zone_value" cellvalue={props.cellValue.toString()}>{props.cellValue}</span>
+      <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>
+      <span className="killer_zone_value" zone_value={props.zoneValue.toString()}>{props.zoneValue}</span>
     </div>
   );
 }

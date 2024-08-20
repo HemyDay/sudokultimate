@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import SudokuGrid from "./SudokuGrid";
 import GameMenu from "./GameMenu";
-import KeyInputListener from "../../Functions/KeyInputListener";
+import KeyInputListener from "./KeyInputListener";
 import './PlayableArea.css';
 import Grid from "../../Grids/Grid_Blank.json"
 
@@ -88,6 +88,7 @@ function PlayableArea() {
       case keyPressed === "Shift":
         setIsInNoteMode(!isInNoteMode);
         break;
+      default: break;
     }
   };
 
