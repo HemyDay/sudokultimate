@@ -9,13 +9,9 @@
   import './PlayableArea.css';
 // FUNCTIONS
   import handleNumberPress from "../../Functions/handleNumberPress.js";
+  import handleDeselectionOfAllGrid from "../../Functions/handleDeselectionOfAllGrid.js";
 // DATA
-import Grid from "../../Grids/Grid_Blank.json" 
-
-
-
-
-
+  import Grid from "../../Grids/Grid_Blank.json" 
 
 // --- COMPONENT --- //
 function PlayableArea() {
@@ -26,20 +22,6 @@ function PlayableArea() {
     const [isInNoteMode, setIsInNoteMode] = useState(false);              // State to toggle note-taking mode
 
   // FUNCTIONS DECLARATION
-    const updateACellByID = (cellID, change, newValue) => {
-      setGridObject((prevGrid) => prevGrid.map(cell =>
-        cell.id === cellID ? { ...cell, [change]: newValue } : cell
-      ));
-    };
-
-    // Function to deselect all selected cells in the grid. For each cell in the GridObject, set its isSelected property to false
-    const handleDeselectionOfAllGrid = () => {
-      setGridObject((prevGrid) =>
-        prevGrid.map((cell) =>
-          cell.isSelected ? { ...cell, isSelected: false } : cell
-        )
-      );
-    };
 
     // Key press handler function
     const onKeyPress = (keyPressed) => {
@@ -47,7 +29,7 @@ function PlayableArea() {
         setPressedKey(keyPressed);
         switch (true) {
           case keyPressed >= 0 && keyPressed <= 9:  handleNumberPress(keyPressed, setGridObject, gridObject, isInNoteMode); break;
-          case keyPressed === "Escape":             handleDeselectionOfAllGrid(); break;
+          case keyPressed === "Escape":             handleDeselectionOfAllGrid(setGridObject); break;
           case keyPressed === "Shift":              setIsInNoteMode(!isInNoteMode); break;
           default: break;
         }
@@ -68,9 +50,8 @@ function PlayableArea() {
 
       <SudokuGrid 
         gridObject={gridObject}
-        updateACellByID={updateACellByID}
+        setGridObject={setGridObject}
         isInNoteMode={isInNoteMode}
-        handleDeselectionOfAllGrid={handleDeselectionOfAllGrid}
         pressedKey={pressedKey} 
       />
 

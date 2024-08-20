@@ -1,7 +1,0 @@
-.playable_area{
-  display: grid;
-  grid-template-columns: 1fr;
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-}

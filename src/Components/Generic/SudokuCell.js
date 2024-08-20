@@ -5,7 +5,9 @@
   import SudokuCellValue from "./SudokuCellValue.js";
 // STYLE
   import './SudokuCell.css';
-// FUNCTIONS
+  // FUNCTIONS
+  import updateACellByID from "../../Functions/updateACellByID.js";
+  import handleDeselectionOfAllGrid from "../../Functions/handleDeselectionOfAllGrid.js";
 
 // ASSETS 
 import line_dwn_cl from "../../Assets/line_dwn_cl.svg";
@@ -26,13 +28,13 @@ function SudokuCell(props) {
   // Function to handle cell selection on mouse down
   function initiateCellSelection() {
     if (props.pressedKey !== "Control") {
-      props.handleDeselectionOfAllGrid();
+      handleDeselectionOfAllGrid(props.setGridObject);
     }
     if (!CELL.isSelected) {
-      props.updateACellByID(CELL.id, 'isSelected', true);
+      updateACellByID(CELL.id, 'isSelected', true, props.setGridObject);
       props.setTypeOfSelect(true);
     } else if (props.isSelected) {
-      props.updateACellByID(CELL.id, 'isSelected', false);
+      updateACellByID(CELL.id, 'isSelected', false, props.setGridObject);
       props.setTypeOfSelect(false);
     }
   }
@@ -41,9 +43,9 @@ function SudokuCell(props) {
   function hoverCellSelection() {
     if (props.isMouseDown) {
       if (props.typeOfSelect && !CELL.isSelected) {
-        props.updateACellByID(CELL.id, 'isSelected', true);
+        updateACellByID(CELL.id, 'isSelected', true, props.setGridObject);
       } else if (!props.typeOfSelect && CELL.isSelected) {
-        props.updateACellByID(CELL.id, 'isSelected', false);
+        updateACellByID(CELL.id, 'isSelected', false, props.setGridObject);
       }
     }
   }

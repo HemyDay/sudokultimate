@@ -34,12 +34,11 @@ function SudokuGrid(props) {
             key={cell.id}
             id={cell.id}
             cell={cell}
-            updateACellByID={props.updateACellByID}
             gridObject={props.gridObject}
+            setGridObject={props.setGridObject}
             typeOfSelect={typeOfSelect}
             setTypeOfSelect={setTypeOfSelect}
             isMouseDown={isMouseDown}
-            handleDeselectionOfAllGrid={props.handleDeselectionOfAllGrid}
             pressedKey={props.pressedKey}
             zoneValue={determineZoneValue(cell.zone, idOfAlreadyGeneratedZones)}
           />
