@@ -22,10 +22,8 @@ function PlayableArea() {
     const [isInNoteMode, setIsInNoteMode] = useState(false);              // State to toggle note-taking mode
 
   // FUNCTIONS DECLARATION
-
-    // Key press handler function
-    const onKeyPress = (keyPressed) => {
-      // Save the currently pressed key in pressedKey
+    const onKeyRelease = () => {setPressedKey(null);};                    // Key release handler function, sets presedKey to null
+    const onKeyPress = (keyPressed) => {                                  // Key press handler function
         setPressedKey(keyPressed);
         switch (true) {
           case keyPressed >= 0 && keyPressed <= 9:  handleNumberPress(keyPressed, setGridObject, gridObject, isInNoteMode); break;
@@ -34,9 +32,6 @@ function PlayableArea() {
           default: break;
         }
       };
-
-    // Key release handler function, sets presedKey to null
-    const onKeyRelease = () => {setPressedKey(null);};
 
   // --- RETURN --- //
   return (

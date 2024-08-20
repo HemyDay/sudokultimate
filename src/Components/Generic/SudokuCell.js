@@ -6,8 +6,7 @@
 // STYLE
   import './SudokuCell.css';
   // FUNCTIONS
-  import updateACellByID from "../../Functions/updateACellByID.js";
-  import handleDeselectionOfAllGrid from "../../Functions/handleDeselectionOfAllGrid.js";
+  import handleCellSelection from "../../Functions/handleCellSelecion.js";
 
 // ASSETS 
 import line_dwn_cl from "../../Assets/line_dwn_cl.svg";
@@ -24,31 +23,6 @@ function SudokuCell(props) {
 
   // VARIABLES DECLARATION
     const CELL = props.cell;
-
-  // Function to handle cell selection on mouse down
-  function initiateCellSelection() {
-    if (props.pressedKey !== "Control") {
-      handleDeselectionOfAllGrid(props.setGridObject);
-    }
-    if (!CELL.isSelected) {
-      updateACellByID(CELL.id, 'isSelected', true, props.setGridObject);
-      props.setTypeOfSelect(true);
-    } else if (props.isSelected) {
-      updateACellByID(CELL.id, 'isSelected', false, props.setGridObject);
-      props.setTypeOfSelect(false);
-    }
-  }
-
-  // Function to handle cell selection on mouse hover
-  function hoverCellSelection() {
-    if (props.isMouseDown) {
-      if (props.typeOfSelect && !CELL.isSelected) {
-        updateACellByID(CELL.id, 'isSelected', true, props.setGridObject);
-      } else if (!props.typeOfSelect && CELL.isSelected) {
-        updateACellByID(CELL.id, 'isSelected', false, props.setGridObject);
-      }
-    }
-  }
 
   // Determine the image based on surrounding zones
   const getSurroundingImage = (rowOffset, colOffset, closed, open) => {
@@ -77,6 +51,8 @@ function SudokuCell(props) {
     };
     return style;
   }
+
+
   // --- RETURN --- //
   return (
     <div className="sudoku_cell"
@@ -86,8 +62,8 @@ function SudokuCell(props) {
       cell_square={parseInt(CELL.id[2])}
       cell_is-selected={CELL.isSelected.toString()}
       cell_is-editable={CELL.isEditable.toString()}
-      onMouseDown={initiateCellSelection}
-      onMouseEnter={hoverCellSelection}
+      onMouseDown={(e) => {handleCellSelection(e, CELL, props)}}
+      onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
       style={generateCellStyle(props)}
     >
       <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>
