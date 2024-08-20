@@ -1,7 +1,7 @@
 // --- IMPORTS --- //
 
 // packages ----------------------------------------------------------------
-import React, { useState }  from "react";
+import React from "react";
 // styles ------------------------------------------------------------------
 import './SudokuCellValue.css';
 
@@ -11,10 +11,10 @@ function SudokuCellValue(props) {
   switch (true) {
 
     case props.cellValue === 0 : 
-      return (<div className="sudoku_cell_value" is_editable={props.is_editable}> </div>); break;
+      return (<div className="sudoku_cell_value" is_editable={props.is_editable}> </div>);
     
     case props.cellValue >= 1 && props.cellValue <= 9 : 
-      return (<div className="sudoku_cell_value" is_editable={props.is_editable}>{props.cellValue}</div>); break;
+      return (<div className="sudoku_cell_value" is_editable={props.is_editable}>{props.cellValue}</div>);
     
     case props.cellValue.length > 1 : 
       return (
@@ -25,7 +25,6 @@ function SudokuCellValue(props) {
           })}
         </div>
       ); 
-    break;
     
     default:
       return (

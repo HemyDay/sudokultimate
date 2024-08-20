@@ -6,7 +6,7 @@ import React from "react";
 import PlayableArea from '../Generic/PlayableArea'
 
 // --- COMPONENT --- //
-function Page_Playable() {
+function PageGridEdit() {
 
   return (
       <PlayableArea/>
@@ -15,4 +15,4 @@ function Page_Playable() {
 }
 
 // --- EXPORT --- //
-export default Page_Playable;
+export default PageGridEdit;
