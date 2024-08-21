@@ -13,12 +13,9 @@ const checkDuplicate = (cell, gridObject) => {
       &&
       ( 
         ccell.id !== cell.id &&
-        ccell.value === cell.value 
+        ccell.value === cell.value &&
+        (ccell.value !== 0 && cell.value !== 0)
       ) 
-      &&
-      (
-        ccell.value !== 0 && cell.value !== 0
-      )
     )
     {
       if (cellOutput.isWarning.includes(ccell.id) === false){
