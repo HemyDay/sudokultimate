@@ -31,7 +31,7 @@ function PlayableArea() {
           case keyPressed === "Shift":              setIsInNoteMode(!isInNoteMode); break;
           default: break;
         }
-      };
+    };
 
   // --- RETURN --- //
   return (

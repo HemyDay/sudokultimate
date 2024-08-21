@@ -14,7 +14,7 @@ function SudokuCell(props) {
 
   // VARIABLES DECLARATION
     const CELL = props.cell;
-
+    
   // --- RETURN --- //
   return (
     <div className="sudoku_cell"
@@ -24,6 +24,7 @@ function SudokuCell(props) {
       cell_square={parseInt(CELL.id[2])}
       cell_is-selected={CELL.isSelected.toString()}
       cell_is-editable={CELL.isEditable.toString()}
+      cell_is-warning={CELL.isWarning.length > 0 ? "true" : "false"}
       onMouseDown={(e) => {handleCellSelection(e, CELL, props)}}
       onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
       style={generateCellStyle(CELL, props.gridObject)}
