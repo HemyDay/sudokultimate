@@ -29,8 +29,8 @@ function SudokuCell(props) {
       onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
       style={generateCellStyle(CELL, props.gridObject)}
     >
-      <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>
       <span className="killer_zone_value" zone_value={props.zoneValue.toString()}>{props.zoneValue}</span>
+      <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>
     </div>
   );
 }

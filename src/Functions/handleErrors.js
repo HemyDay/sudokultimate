@@ -1,4 +1,6 @@
 
+import updateACellByID from "./updateACellByID";
+
 const checkDuplicate = (cell, gridObject) => {
   let cellOutput = cell;
   for (let i = 0; i < gridObject.length; i++) {
@@ -30,9 +32,39 @@ const checkDuplicate = (cell, gridObject) => {
   return cellOutput;
 }
 
+const checkZoneTotal = (gridObject, setGridObject) => {
+  let numberOfZones = 0;
+  gridObject.forEach(item => parseInt(item.zone.substring(0,2)) > numberOfZones ? numberOfZones = parseInt(item.zone.substring(0,2)) : "" );
+
+  for (let z = 0; z < numberOfZones; z++) {
+    let zoneCells = gridObject.filter(item => parseInt(item.zone.substring(0,2)) === (z+1))
+    let zoneMaxValue = parseInt(zoneCells[0].zone.substring(3,5))
+    let zoneCurrentValue = 0;
+    zoneCells.forEach(item => {zoneCurrentValue += item.value})
+
+    if (zoneCurrentValue > zoneMaxValue) {
+      for (let i = 0; i < zoneCells.length; i++) {
+        let newWarning = zoneCells[i].isWarning;
+        if (newWarning.indexOf('Z') === -1){newWarning.push('Z')};
+        updateACellByID(zoneCells[i].id, 'isWarning', newWarning , setGridObject) 
+        console.log(newWarning)
+      }
+    } else {
+      for (let j = 0; j < zoneCells.length; j++) {
+        let newWarning = zoneCells[j].isWarning;
+        if (newWarning.indexOf('Z') !== -1){newWarning.splice(newWarning.indexOf('Z'), 1);}
+        updateACellByID(zoneCells[j].id, 'isWarning', newWarning , setGridObject) 
+        console.log(newWarning)
+      }
+    }
+
+  }
+
+}
 
 const handleErrors = (gridObject, setGridObject,) => {
   setGridObject(gridObject.map((cell) => checkDuplicate(cell, gridObject)));
+  checkZoneTotal(gridObject, setGridObject);
   console.log("Errors have been checked")
 }
 
