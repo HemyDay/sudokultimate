@@ -6,8 +6,8 @@
 // STYLE
   import './SudokuCell.css';
 // FUNCTIONS
-  import handleCellSelection from "../../Functions/handleCellSelecion.js";
-  import generateCellStyle from "../../Functions/generateCellStyle.js";
+  import handleCellSelection from "../../../Functions/handleCellSelecion.js";
+  import generateCellStyle from "../../../Functions/generateCellStyle.js";
 
 // --- COMPONENT --- //
 function SudokuCell(props) {

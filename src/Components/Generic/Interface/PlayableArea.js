@@ -2,16 +2,16 @@
 // LIBRARIES
   import React, { useState } from "react";
 // COMPONENTS
-  import SudokuGrid from "./SudokuGrid";
+  import SudokuGrid from "../GameGrid/SudokuGrid.js";
   import GameMenu from "./GameMenu";
   import KeyInputListener from "./KeyInputListener";
 // STYLE
   import './PlayableArea.css';
 // FUNCTIONS
-  import handleNumberPress from "../../Functions/handleNumberPress.js";
-  import handleDeselectionOfAllGrid from "../../Functions/handleDeselectionOfAllGrid.js";
+  import handleNumberPress from "../../../Functions/handleNumberPress.js";
+  import handleDeselectionOfAllGrid from "../../../Functions/handleDeselectionOfAllGrid.js";
 // DATA
-  import Grid from "../../Data/Grid_Blank.json" 
+  import Grid from "../../../Data/Grid_Blank.json" 
 
 // --- COMPONENT --- //
 function PlayableArea() {

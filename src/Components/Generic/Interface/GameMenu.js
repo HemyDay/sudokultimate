@@ -1,6 +1,6 @@
 // --- IMPORTS --- //
 // packages ----------------------------------------------------------------
-import React, {useState} from "react";
+import React from "react";
 // components --------------------------------------------------------------
 import MenuButtons from "./MenuButtons";
 // styles ------------------------------------------------------------------

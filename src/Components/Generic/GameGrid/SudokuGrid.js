@@ -6,7 +6,7 @@
 // STYLE
   import './SudokuGrid.css';
 // FUNCTIONS
-  import determineZoneValue from "../../Functions/determineZoneValue";
+  import determineZoneValue from "../../../Functions/determineZoneValue";
 
 // --- COMPONENT --- //
 function SudokuGrid(props) {
