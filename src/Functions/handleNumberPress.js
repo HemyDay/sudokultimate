@@ -1,4 +1,3 @@
-import React, {useState} from "react";
 import handleErrors from "./handleErrors";
 import eraseNotesOnNbPlacement from "./eraseNotesOnNbPlacement";
 
@@ -17,9 +16,9 @@ const handleNumberChange = (cell, number, isInNoteMode, setGridObject, gridObjec
   }   
 }
 
-const HandleNumberPress = (number, setGridObject, gridObject, isInNoteMode) => {
+const handleNumberPress = (number, setGridObject, gridObject, isInNoteMode) => {
   setGridObject(gridObject.map((cell) => handleNumberChange(cell, number, isInNoteMode, setGridObject, gridObject)));
   handleErrors(gridObject, setGridObject);
 }
 
-export default HandleNumberPress;
+export default handleNumberPress;
