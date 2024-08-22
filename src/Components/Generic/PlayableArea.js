@@ -11,7 +11,7 @@
   import handleNumberPress from "../../Functions/handleNumberPress.js";
   import handleDeselectionOfAllGrid from "../../Functions/handleDeselectionOfAllGrid.js";
 // DATA
-  import Grid from "../../Grids/Grid_Blank.json" 
+  import Grid from "../../Data/Grid_Blank.json" 
 
 // --- COMPONENT --- //
 function PlayableArea() {

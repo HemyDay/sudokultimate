@@ -47,14 +47,12 @@ const checkZoneTotal = (gridObject, setGridObject) => {
         let newWarning = zoneCells[i].isWarning;
         if (newWarning.indexOf('Z') === -1){newWarning.push('Z')};
         updateACellByID(zoneCells[i].id, 'isWarning', newWarning , setGridObject) 
-        console.log(newWarning)
       }
     } else {
       for (let j = 0; j < zoneCells.length; j++) {
         let newWarning = zoneCells[j].isWarning;
         if (newWarning.indexOf('Z') !== -1){newWarning.splice(newWarning.indexOf('Z'), 1);}
         updateACellByID(zoneCells[j].id, 'isWarning', newWarning , setGridObject) 
-        console.log(newWarning)
       }
     }
 
@@ -65,7 +63,6 @@ const checkZoneTotal = (gridObject, setGridObject) => {
 const handleErrors = (gridObject, setGridObject,) => {
   setGridObject(gridObject.map((cell) => checkDuplicate(cell, gridObject)));
   checkZoneTotal(gridObject, setGridObject);
-  console.log("Errors have been checked")
 }
 
 export default handleErrors;
