@@ -1,35 +1,25 @@
 
 import updateACellByID from "./updateACellByID";
+import cellMatchIsTrue from "./cellMatchisTrue";
 
 const checkDuplicate = (cell, gridObject) => {
-  let cellOutput = cell;
+
   for (let i = 0; i < gridObject.length; i++) {
     let ccell = gridObject[i];
-    if (
-      ( 
-        ccell.id[0] === cell.id[0] || 
-        ccell.id[1] === cell.id[1] ||
-        ccell.id[2] === cell.id[2] ||
-        ccell.zone.substring(0,2) === cell.zone.substring(0,2)
-      )
-      &&
-      ( 
-        ccell.id !== cell.id &&
-        ccell.value === cell.value &&
-        (ccell.value !== 0 && cell.value !== 0)
-      ) 
-    )
-    {
-      if (cellOutput.isWarning.includes(ccell.id) === false){
-        cellOutput.isWarning.push(ccell.id);
+
+    if (cellMatchIsTrue(cell, ccell) && ccell.value === cell.value && ccell.value !== 0 && cell.value !== 0){
+      if (cell.isWarning.includes(ccell.id) === false){
+        cell.isWarning.push(ccell.id);
       }
-    } else {
-      if (cellOutput.isWarning.indexOf(ccell.id) !== -1){
-        cellOutput.isWarning.splice(cellOutput.isWarning.indexOf(ccell.id), 1);
+    } 
+    else {
+      if (cell.isWarning.indexOf(ccell.id) !== -1){
+        cell.isWarning.splice(cell.isWarning.indexOf(ccell.id), 1);
       }
     }
+    
   }
-  return cellOutput;
+  return cell;
 }
 
 const checkZoneTotal = (gridObject, setGridObject) => {
@@ -66,3 +56,5 @@ const handleErrors = (gridObject, setGridObject,) => {
 }
 
 export default handleErrors;
+
+
