@@ -1,4 +1,4 @@
-import handleErrors from "./handleErrors";
+import handleErrors from "./handleErrors.js";
 import removeNotesOnPlacement from "./removeNotesOnPlacement.js";
 
 const handleNumberChange = (cell, number, isInNoteMode, gridObject) => {

@@ -1,0 +1,55 @@
+/* GENERAL STYLE */
+.cell{
+  width: 52px;
+  height: 52px;
+  border: solid 1px lightgray;
+  user-select: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+}
+
+.cell[editable="false"]{
+  font-weight:bold;
+}
+
+/* SQUARE STYLE */
+.cell[row^="1"],.cell[row^="4"],.cell[row^="7"]{border-top: solid 2px black;}
+.cell[row^="9"]{border-bottom: solid 2px black;}
+.cell[col^="1"],.cell[col^="4"],.cell[col^="7"]{border-left: solid 2px black;}
+.cell[col^="9"]{border-right: solid 2px black;}
+
+/* DRAFT STYLE DIFFERENCES */
+.not_draft{
+  width: 36px;
+  height: 36px;
+  font-size: 25px;
+  text-align: center;
+  line-height: 36px;
+  margin: 8px;
+}
+
+.draft{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* KILLER ZONE VALUE */
+.killer_zone_value{
+  display: block;
+  font-size: 10px;
+  line-height: 10px;
+  font-weight: initial;
+  height: fit-content;
+  width: fit-content;
+  padding: 0px 2px 2px 2px;
+  background-color:white;
+  position:absolute;
+  top: 0;
+  border-radius: 20px;
+}
+
+.killer_zone_value[zone_value^="0"]{
+  display: none;
+}
