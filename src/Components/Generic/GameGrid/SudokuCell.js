@@ -8,12 +8,16 @@
 // FUNCTIONS
   import handleCellSelection from "../../../Functions/handleCellSelecion.js";
   import generateCellStyle from "../../../Functions/generateCellStyle.js";
+  import handleDoubleClickOnCell from "../../../Functions/handleDoubleClickOnCell.js";
 
 // --- COMPONENT --- //
 function SudokuCell(props) {
 
   // VARIABLES DECLARATION
     const CELL = props.cell;
+
+  // FUNCTION DECLARATION
+    const handleDoubleClick = () => {handleDoubleClickOnCell(CELL, props.setGridObject, props.gridObject);};  // Event handler for double click event
     
   // --- RETURN --- //
   return (
@@ -28,6 +32,7 @@ function SudokuCell(props) {
       onMouseDown={(e) => {handleCellSelection(e, CELL, props)}}
       onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
       style={generateCellStyle(CELL, props.gridObject)}
+      onDoubleClick={handleDoubleClick}
     >
       <span className="killer_zone_value" zone_value={props.zoneValue.toString()}>{props.zoneValue}</span>
       <SudokuCellValue cellValue={CELL.value} is_editable={CELL.isEditable.toString()}/>

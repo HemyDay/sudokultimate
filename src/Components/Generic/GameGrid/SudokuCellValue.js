@@ -10,18 +10,21 @@ function SudokuCellValue(props) {
 
   switch (true) {
 
-    case props.cellValue === 0 : 
-      return (<div className="sudoku_cell_value" is_editable={props.is_editable}> </div>);
-    
-    case props.cellValue >= 1 && props.cellValue <= 9 : 
-      return (<div className="sudoku_cell_value" is_editable={props.is_editable}>{props.cellValue}</div>);
+    case props.cellValue >= 0 && props.cellValue <= 9 : 
+      return (
+        <div 
+          className="sudoku_cell_value" 
+          is_editable={props.is_editable}
+        >
+        {props.cellValue > 0 ? props.cellValue : ""}
+        </div>
+      );
     
     case props.cellValue.length > 1 : 
       return (
         <div className="sudoku_cell_value notes_mode">
           {props.cellValue.map((note, index) => {
-            if (note === 0) return <p key={index} is_editable={props.is_editable}> </p>;
-            else return <p key={index} is_editable={props.is_editable}>{note}</p>;
+            return <p key={index}>{note === 0 ? "" : note }</p>;
           })}
         </div>
       ); 

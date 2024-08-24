@@ -19,6 +19,7 @@ function SudokuGrid(props) {
   // FUNCTIONS DECLARATION
     const handleMouseDown = () => {setIsMouseDown(true);};          // Event handler for mouse down event
     const handleMouseUp = () => {setIsMouseDown(false);};           // Event handler for mouse up event
+    
 
   // RETURN
   return (

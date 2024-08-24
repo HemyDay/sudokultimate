@@ -13,6 +13,13 @@
   font-weight:bold;
 }
 
+.sudoku_cell_value[highlighted="true"]{
+  border: solid 1px orange;
+}
+.sudoku_cell_value[highlighted="false"]{
+  border: none;
+}
+
 
 .notes_mode {
   display: grid;
@@ -27,4 +34,12 @@
   line-height: 12px;
   margin: 0;
   padding:0;
+}
+
+.notes_mode > p[highlighted="true"] {
+  border: solid 1px orange;
+}
+
+.notes_mode > p[highlighted="false"] {
+  border: none;
 }
