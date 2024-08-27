@@ -1,0 +1,5 @@
+.game_menu{
+  border : solid 1px gray;
+  display: inline-block;
+  width: fit-content;
+}

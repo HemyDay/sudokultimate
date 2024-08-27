@@ -4,15 +4,15 @@ import updateACellByID from "./updateACellByID";
 const handleCellSelection = (e, CELL, props) => {
   if (e.type === "mousedown") {
     if (props.pressedKey !== "Control") {
-      handleDeselectionOfAllGrid(props.setGridObject);
+      handleDeselectionOfAllGrid(props.setGRID_OBJECT);
     }
     const newSelectionState = !CELL.isSelected;
-    updateACellByID(CELL.id, 'isSelected', newSelectionState, props.setGridObject);
-    props.setTypeOfSelect(newSelectionState);
-  } else if (e.type === "mouseenter" && props.isMouseDown) {
-    const newSelectionState = props.typeOfSelect;
+    updateACellByID(CELL.id, 'isSelected', newSelectionState, props.setGRID_OBJECT);
+    props.setTYPE_OF_SELECT(newSelectionState);
+  } else if (e.type === "mouseenter" && props.IS_MOUSE_DOWN) {
+    const newSelectionState = props.TYPE_OF_SELECT;
     if (newSelectionState !== CELL.isSelected) {
-      updateACellByID(CELL.id, 'isSelected', newSelectionState, props.setGridObject);
+      updateACellByID(CELL.id, 'isSelected', newSelectionState, props.setGRID_OBJECT);
     }
   }
 };

@@ -1,0 +1,12 @@
+.game_interface{
+  display: grid;
+  width: fit-content;
+  border: solid 1px gray;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1000px) {
+  .game_interface {
+    grid-template-columns: auto auto;
+  }
+}

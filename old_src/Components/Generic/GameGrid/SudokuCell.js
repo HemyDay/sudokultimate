@@ -6,7 +6,7 @@
 // STYLE
   import './SudokuCell.css';
 // FUNCTIONS
-  import handleCellSelection from "../../../Functions/handleCellSelecion.js";
+  import handleCellSelection from "../../../../src/Functions/handleCellSelecion.js";
   import generateCellStyle from "../../../Functions/generateCellStyle.js";
   import handleDoubleClickOnCell from "../../../Functions/handleDoubleClickOnCell.js";
 

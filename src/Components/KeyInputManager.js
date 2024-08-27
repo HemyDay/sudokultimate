@@ -14,7 +14,7 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
 
       // Trigger onKeyPress if the key is valid and not already pressed
       if (!isKeyPressed.current && (isDigitKey || isAllowedKey)) {
-        onKeyPress(event.key);
+        onKeyPress(event.key, event.getModifierState("CapsLock"));
         isKeyPressed.current = true;
       }
     };
@@ -41,6 +41,8 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
 
   return null; // This component does not render any UI
 }
+
+
 
 // --- EXPORT --- //
 export default KeyInputManager;

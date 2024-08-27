@@ -9,9 +9,15 @@
   position: relative;
 }
 
-.cell[editable="false"]{
+.cell[is_editable='false']{
   font-weight:bold;
 }
+
+/* If cell is selected */
+.cell[is_selected='true'], .cell[is_selected='true'] > span {
+  background-color: lightblue;
+}
+
 
 /* SQUARE STYLE */
 .cell[row^="1"],.cell[row^="4"],.cell[row^="7"]{border-top: solid 2px black;}

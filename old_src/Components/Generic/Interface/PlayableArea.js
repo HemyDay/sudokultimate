@@ -9,7 +9,7 @@
   import './PlayableArea.css';
 // FUNCTIONS
   import handleNumberPress from "../../../Functions/handleNumberPress.js";
-  import handleDeselectionOfAllGrid from "../../../Functions/handleDeselectionOfAllGrid.js";
+  import handleDeselectionOfAllGrid from "../../../../src/Functions/handleDeselectionOfAllGrid.js";
 // DATA
   import Grid from "../../../../src/Data/Grid_Blank.json" 
 
@@ -27,8 +27,6 @@ function PlayableArea() {
         setPressedKey(keyPressed);
         switch (true) {
           case keyPressed >= 0 && keyPressed <= 9:  handleNumberPress(keyPressed, setGridObject, gridObject, isInNoteMode); break;
-          case keyPressed === "Escape":             handleDeselectionOfAllGrid(setGridObject); break;
-          case keyPressed === "Shift":              setIsInNoteMode(!isInNoteMode); break;
           default: break;
         }
     };

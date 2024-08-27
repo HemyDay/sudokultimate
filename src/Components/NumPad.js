@@ -4,10 +4,10 @@ import React from "react";
 // components --------------------------------------------------------------
 
 // styles ------------------------------------------------------------------
-import './MenuButtons.css';
+import './NumPad.css';
 
 // --- COMPONENT --- //
-function MenuButtons() {
+function NumPad() {
 
   const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
   
@@ -27,22 +27,22 @@ function MenuButtons() {
 
 
   return (
-      <div className="num_pad">
-        {digits.map((digit) => {
-          return(
-            <button 
-              key={digit}
-              onMouseDown={() => simulateKeyPress(digit)} 
-              onMouseUp={() => simulateKeyRelease(digit)} 
-              onMouseLeave={() => simulateKeyRelease(digit)}
-            >
-              {digit}
-            </button>
-          )
-        })}
-      </div>
+    <div className="num_pad">
+      {digits.map((digit) => {
+        return(
+          <button 
+            key={digit}
+            onMouseDown={() => simulateKeyPress(digit)} 
+            onMouseUp={() => simulateKeyRelease(digit)} 
+            onMouseLeave={() => simulateKeyRelease(digit)}
+          >
+            {digit}
+          </button>
+        )
+      })}
+    </div>
   );
 }
 
 // --- EXPORT --- //
-export default MenuButtons;
+export default NumPad;
