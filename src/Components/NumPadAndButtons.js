@@ -4,10 +4,10 @@ import React from "react";
 // components --------------------------------------------------------------
 
 // styles ------------------------------------------------------------------
-import './NumPad.css';
+import './NumPadAndButtons.css';
 
 // --- COMPONENT --- //
-function NumPad() {
+function NumPadAndButtons() {
 
   const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
   
@@ -40,9 +40,18 @@ function NumPad() {
           </button>
         )
       })}
+      <button 
+        id="erase_button"
+        onMouseDown={() => simulateKeyPress(0)} 
+        onMouseUp={() => simulateKeyRelease(0)} 
+        onMouseLeave={() => simulateKeyRelease(0)}
+      >
+        Erase
+      </button>
+      <button id="note_mode_button">Note Mode</button>
     </div>
   );
 }
 
 // --- EXPORT --- //
-export default NumPad;
+export default NumPadAndButtons;

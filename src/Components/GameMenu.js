@@ -5,14 +5,14 @@ import React from "react";
 // STYLE 
 import "./GameMenu.css";
 // COMPONENTS
-import NumPad from "./NumPad";
+import NumPadAndButtons from "./NumPadAndButtons";
 
 // --- COMPONENT --- //
 const GameMenu = (props) => {
 
   return (
     <section className="game_menu">
-      <NumPad />
+      <NumPadAndButtons />
     </section>
     
   );

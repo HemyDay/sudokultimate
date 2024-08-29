@@ -3,7 +3,7 @@ import updateACellByID from "./updateACellByID";
 
 const handleCellSelection = (e, CELL, props) => {
   if (e.type === "mousedown") {
-    if (props.pressedKey !== "Control") {
+    if (e.ctrlKey === false) {
       handleDeselectionOfAllGrid(props.setGRID_OBJECT);
     }
     const newSelectionState = !CELL.isSelected;
