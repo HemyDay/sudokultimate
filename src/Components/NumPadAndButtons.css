@@ -1,0 +1,14 @@
+.num_pad{
+  display: grid;
+  gap: 5px;
+  width: fit-content;
+  grid-template-columns: 45px 45px 45px;
+  grid-template-rows: repeat(5, 45px);
+}
+#erase_button {
+  grid-column: 1 / 4;
+}
+#note_mode_button{
+  grid-column: 1 / 4;
+}
+

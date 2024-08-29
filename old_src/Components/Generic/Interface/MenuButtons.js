@@ -27,14 +27,11 @@ function MenuButtons() {
 
 
   return (
-    <section className="menu_buttons">
-    
       <div className="num_pad">
         {digits.map((digit) => {
           return(
             <button 
               key={digit}
-              className="num_pad_button menu_button" 
               onMouseDown={() => simulateKeyPress(digit)} 
               onMouseUp={() => simulateKeyRelease(digit)} 
               onMouseLeave={() => simulateKeyRelease(digit)}
@@ -44,18 +41,6 @@ function MenuButtons() {
           )
         })}
       </div>
-
-      <div className="tool_pad">
-        <button className="tool_pad_button menu_button"
-          onMouseDown={() => simulateKeyPress("0")} 
-          onMouseUp={() => simulateKeyRelease("0")} 
-          onMouseLeave={() => simulateKeyRelease("0")}
-        >
-          erase
-        </button>
-        <button className="tool_pad_button menu_button">notes</button>
-      </div>
-    </section>
   );
 }
 

@@ -14,10 +14,11 @@
 }
 
 .sudoku_cell_value[highlighted="true"]{
-  border: solid 1px orange;
+  background-color: orange;
+  border-radius: 5px;
 }
 .sudoku_cell_value[highlighted="false"]{
-  border: none;
+  background-color: default;
 }
 
 
@@ -37,9 +38,10 @@
 }
 
 .notes_mode > p[highlighted="true"] {
-  border: solid 1px orange;
+  background-color: orange;
+  border-radius: 5px;
 }
 
 .notes_mode > p[highlighted="false"] {
-  border: none;
+  background-color: default;
 }
