@@ -21,11 +21,10 @@ function App() {
 
   // FUNCTIONS
   const onKeyRelease = () => {setPRESSED_KEY(null);};                     // Key release handler function, sets presedKey to null
-  const onKeyPress = (keyPressed) => {                                    // Key press handler function
-    setPRESSED_KEY(keyPressed);
+  const onKeyPress = (key) => {setPRESSED_KEY(key);
     switch (true) {
-      case keyPressed >= 0 && keyPressed <= 9:  handleNumberPress(keyPressed, setGRID_OBJECT, GRID_OBJECT, NOTE_MODE); break;
-      default: break;
+      case key.code[key.code.length - 1] >= "0" && key.code[key.code.length - 1] <= "9":  handleNumberPress(key, setGRID_OBJECT, GRID_OBJECT, NOTE_MODE); break;
+      default: ; break; 
     }
 };
 
@@ -37,11 +36,12 @@ function App() {
     />
     <KeyInputManager 
       POSSIBLE_KEY_INPUTS={POSSIBLE_KEY_INPUTS} 
-      PRESSED_KEY={PRESSED_KEY} GRID_OBJECT={GRID_OBJECT} 
+      PRESSED_KEY={PRESSED_KEY} 
+      GRID_OBJECT={GRID_OBJECT} 
       setGRID_OBJECT={setGRID_OBJECT} 
       onKeyPress={onKeyPress} 
       onKeyRelease={onKeyRelease}
-      />
+    />
   </>);
 
 }

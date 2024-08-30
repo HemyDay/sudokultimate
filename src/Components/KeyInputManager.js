@@ -8,22 +8,28 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
 
   useEffect(() => {
     // Function to handle the keydown event
-    const handleKeyDown = (event) => {
-      const isDigitKey = event.key >= "0" && event.key <= "9";
-      const isAllowedKey = POSSIBLE_KEY_INPUTS.includes(event.key);
-
-      // Trigger onKeyPress if the key is valid and not already pressed
-      if (!isKeyPressed.current && (isDigitKey || isAllowedKey)) {
-        onKeyPress(event.key, event.getModifierState("CapsLock"));
-        isKeyPressed.current = true;
-      }
+    const handleKeyDown = (e) => {
+      if (!isKeyPressed.current) {
+        switch (true) {  
+          case POSSIBLE_KEY_INPUTS.includes(e.key) :
+            isKeyPressed.current = true;
+            onKeyPress(e);
+          break;
+          case e.code[e.code.length - 1] >= "0" && e.code[e.code.length - 1] <= "9" : 
+            isKeyPressed.current = true;
+            e.preventDefault();
+            onKeyPress(e);
+          break; 
+          default: ; break; 
+        } 
+      }   
     };
 
     // Function to handle the keyup event
-    const handleKeyUp = (event) => {
-      // Trigger onKeyRelease if the released key matches the pressed key
-      if (isKeyPressed.current && event.key === PRESSED_KEY) {
-        onKeyRelease(event.key);
+    const handleKeyUp = (e) => {
+      // Trigger onKeyRelease if the released KEY matches the pressed KEY
+      if (isKeyPressed.current && e.key === PRESSED_KEY.key) {
+        onKeyRelease(e);
         isKeyPressed.current = false;
       }
     };
@@ -37,6 +43,7 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
+    
   }, [onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSED_KEY]);
 
   return null; // This component does not render any UI
