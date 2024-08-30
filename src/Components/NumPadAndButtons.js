@@ -7,7 +7,7 @@ import React from "react";
 import './NumPadAndButtons.css';
 
 // --- COMPONENT --- //
-function NumPadAndButtons() {
+function NumPadAndButtons(props) {
 
   const digits = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
   
@@ -48,7 +48,11 @@ function NumPadAndButtons() {
       >
         Erase
       </button>
-      <button id="note_mode_button">Note Mode</button>
+      <button id="note_mode_button"
+        onClick={() => props.setNOTE_MODE(!props.NOTE_MODE)} 
+      >
+        Note Mode
+      </button>
     </div>
   );
 }

@@ -8,6 +8,7 @@ import "./Cell.css";
 import generateCellStyle from "../Functions/generateCellStyle";           // Generates style for the Killer Sudoku mode
 import generateValueDisplay from "../Functions/generateValueDisplay";     // Generates the value displayed inside the cell
 import handleCellSelection from "../Functions/handleCellSelecion";
+import handleZoneSelection from "../Functions/handleZoneSelection";
 
 // --- COMPONENT --- //
 const Cell = (props) => {
@@ -26,6 +27,7 @@ const Cell = (props) => {
       style={generateCellStyle(CELL, props.GRID_OBJECT)}
       onMouseDown={(e) => {handleCellSelection(e, CELL, props)}}
       onMouseEnter={(e) => {handleCellSelection(e, CELL, props)}}
+      onDoubleClick={(e) => {handleZoneSelection(CELL, props)}}
     >
       {generateValueDisplay(CELL)}
       <span className="killer_zone_value" zone_value={props.zoneValue.toString()}>{props.zoneValue}</span>
