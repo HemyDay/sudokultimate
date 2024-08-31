@@ -10,8 +10,7 @@ import KILLER_COMBINATIONS from "./Data/KillerCombinations.json"
 
 // FUNCTIONS 
 import handleNumberPress from './Functions/handleNumberPress';
-import generateZones from './Functions/generateZones';
-
+import handleZoneCombinations from './Functions/handleZoneCombinations';
 
 function App() {
 
@@ -19,7 +18,7 @@ function App() {
   const POSSIBLE_KEY_INPUTS = [];
   const [PRESSED_KEY, setPRESSED_KEY] = useState(null)
   const [GRID_OBJECT, setGRID_OBJECT] = useState(Grid.grid_with_zones)
-  const [ZONES, setZONES] = useState([])
+  const [ZONES, setZONES] = useState(handleZoneCombinations(GRID_OBJECT, KILLER_COMBINATIONS))
   const [NOTE_MODE, setNOTE_MODE] = useState(false);
 
   // FUNCTIONS
@@ -30,8 +29,7 @@ function App() {
       default: ; break; 
     }
   };
-
-  generateZones(GRID_OBJECT, KILLER_COMBINATIONS)
+  
   return (<>
     <GameInterface 
       PRESSED_KEY={PRESSED_KEY} 
@@ -39,6 +37,8 @@ function App() {
       setGRID_OBJECT={setGRID_OBJECT}
       NOTE_MODE={NOTE_MODE}
       setNOTE_MODE={setNOTE_MODE} 
+      ZONES={ZONES}
+      setZONES={setZONES}
     />
     <KeyInputManager 
       POSSIBLE_KEY_INPUTS={POSSIBLE_KEY_INPUTS} 

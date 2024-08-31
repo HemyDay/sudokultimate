@@ -23,7 +23,7 @@ const GameGrid = (props) => {
 
   return (
     <section className="game_grid"
-      onContextMenu={(e) => { e.preventDefault(); }}
+      onContextMenu={(e) => {e.preventDefault();}}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
