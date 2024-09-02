@@ -18,7 +18,7 @@ const handleZoneCombinations = (GRID_OBJECT, KILLER_COMBINATIONS) => {
 
   }
 
-  // Remove the first element (default zone) as it's empty
+  // Remove the first element as it's empty
   ZONES_OBJECT.shift();
 
   // Adds all possible combos for this configuration, plus a boolean value for each to determine if it's active or not

@@ -24,34 +24,42 @@ const KillerSudokuMenu = (props) => {
   
   }
 
-  const determineDisplayCombo = (GRID_OBJECT, ZONES) => {
-    let combo = determineKillerComboToDisplay(GRID_OBJECT, ZONES);
-    let output = <div> </div>
-
-    if (combo === null) {
-      return <div> </div>
-    } else {
-      return <div>
-        {combo.combos.map((combination) => {
-          return(
-            <div>
-              <button key={combination[0]}>{combination[0]}</button>
-              <input type="checkbox" value={combination[1]}></input>
-            </div>
-          )
-        })}
-      </div>
-    }
-
+  const updateComboActiveForSaidZone = (combo, combination, ZONES, setZONES) => {
+    console.log(ZONES)
+    ZONES[combo.id-1].combos.find((e) => e === combination)[1] = [!combination[1]];
+    console.log(ZONES)
   }
 
+  let combo = determineKillerComboToDisplay(props.GRID_OBJECT, props.ZONES);
 
-  return (
+  if (combo === null) {
+    return (
     <section className="killer_menu">
-      {determineDisplayCombo(props.GRID_OBJECT, props.ZONES)}
+      <div> </div>
+    </section>  
+    )
+  } else {
+    return (
+    <section className="killer_menu">
+        <div className="combo_info"> 
+          <p>Value : {combo.goalValue} </p>
+          <p>Cells : {combo.cells.length}</p>
+        </div>
+        {combo.combos.map((combination) => {
+          return(
+            <button 
+              className="one_combo" 
+              key={combination[0]}
+              is_active={combination[1]}
+              onClick={() => updateComboActiveForSaidZone(combo, combination, props.ZONES, props.setZONES)}
+            >
+              {combination[0]}
+            </button>
+          )
+        })}
     </section>
-    
-  );
+    )
+  }
   
 }
 
