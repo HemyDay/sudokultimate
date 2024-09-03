@@ -1,7 +1,0 @@
-.sudoku_grid {
-  display: grid;
-  grid-template-columns: repeat(9, auto);
-  grid-template-rows: repeat(9, auto);
-  width: fit-content;
-  background-color: white;
-}
