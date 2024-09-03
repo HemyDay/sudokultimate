@@ -1,0 +1,8 @@
+.combo_info > p {
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.one_combo[is_active='false']{
+  background-color: darkgoldenrod;
+}

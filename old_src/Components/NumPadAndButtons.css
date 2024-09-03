@@ -1,0 +1,21 @@
+.num_pad{
+  display: grid;
+  gap: 5px;
+  width: fit-content;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(5, 1fr);
+  height: fit-content;
+}
+#erase_button, #note_mode_button {
+  width: 100%;
+  grid-column: 1 / 4;
+}
+
+.num_pad > button {
+  width: 45px;
+  height: 45px;
+  font-size: 25px;
+  text-align: center;
+  line-height: 36px;
+}
+
