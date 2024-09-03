@@ -12,16 +12,15 @@ import Cell from "./Cell";
 const GameGrid = (props) => {
 
   return (
-    <section className="game_grid"
-    >
-      {props.LEVEL.cells.map((cell) => {
-        return (
+    <section className="game_grid">
+      {Object.entries(props.LEVEL.cells).map((cell) => {
+        {return (
           <Cell
-            key={cell.id}
-            CELL={cell}
+            key={cell[0]}
+            CELL={cell[1]}
             LEVEL={props.LEVEL}
           />
-        )
+        )}
       })}
     </section>
     

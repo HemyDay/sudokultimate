@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 
 // --- COMPONENT --- //
-const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSED_KEY }) => {
+const KeyInputManager = ({ onKeyPress, onKeyRelease, PRESSED_KEY }) => {
   // Ref to track if a key is currently pressed
   const isKeyPressed = useRef(false);
 
@@ -11,10 +11,6 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
     const handleKeyDown = (e) => {
       if (!isKeyPressed.current) {
         switch (true) {  
-          case POSSIBLE_KEY_INPUTS.includes(e.key) :
-            isKeyPressed.current = true;
-            onKeyPress(e);
-          break;
           case e.code[e.code.length - 1] >= "0" && e.code[e.code.length - 1] <= "9" : 
             isKeyPressed.current = true;
             e.preventDefault();
@@ -44,7 +40,7 @@ const KeyInputManager = ({ onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSE
       window.removeEventListener("keyup", handleKeyUp);
     };
     
-  }, [onKeyPress, onKeyRelease, POSSIBLE_KEY_INPUTS, PRESSED_KEY]);
+  }, [onKeyPress, onKeyRelease, PRESSED_KEY]);
 
   return null; // This component does not render any UI
 }

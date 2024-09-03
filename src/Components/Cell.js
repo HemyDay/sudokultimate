@@ -10,19 +10,16 @@ import generateValueDisplay from "../Functions/generateValueDisplay";     // Gen
 // --- COMPONENT --- //
 const Cell = (props) => {
 
-  // VARIABLES
-  const CELL = props.CELL;  
-
   // RETURN
   return (
     <div 
       className="cell"
-      row={parseInt(CELL.id[0])}
-      col={parseInt(CELL.id[1])}
-      is_editable={CELL.isEditable.toString()}
-      is_selected={CELL.isSelected.toString()}
+      row={parseInt(props.CELL.id[0])}
+      col={parseInt(props.CELL.id[1])}
+      is_editable={props.CELL.isEditable.toString()}
+      is_selected={props.CELL.isSelected.toString()}
     >
-      {generateValueDisplay(CELL)}
+      {generateValueDisplay(props.CELL)}
     </div>
   );
 }

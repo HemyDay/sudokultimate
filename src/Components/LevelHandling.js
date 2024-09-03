@@ -15,16 +15,14 @@ import KeyInputManager from './KeyInputManager';
 // --- COMPONENT --- //
 const LevelHandling = (props) => {
 
-  let LEVEL = {
-    "cells" : levelTemplate.cells
+  const [LEVEL, setLEVEL] = useState({
+    "cells" : LEVEL_1.cells
   }
-
-  console.log(LEVEL)
+)
 
   return (
     <section>
-      <GameGrid LEVEL={LEVEL}/>
-      <KeyInputManager/>
+      <GameGrid LEVEL={LEVEL} setLEVEL={setLEVEL}/>
     </section>
   );
   
