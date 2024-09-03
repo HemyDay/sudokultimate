@@ -50,7 +50,7 @@
 }
 
 /* KILLER ZONE VALUE */
-.killer_zone_value{
+/* .killer_zone_value{
   display: block;
   font-size: 10px;
   line-height: 10px;
@@ -66,4 +66,4 @@
 
 .killer_zone_value[zone_value^="0"]{
   display: none;
-}
+} */
